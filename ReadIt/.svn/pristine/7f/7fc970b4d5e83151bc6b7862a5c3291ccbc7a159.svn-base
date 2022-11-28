@@ -1,0 +1,36 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Calendar-Mapper">
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and book_title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'w'.toString()">
+			and book_author like '%'||#{keyword}||'%'
+		</if>
+		<!-- <if test="searchType == 'e'.toString()"> -->
+		<!-- and mem_email like '%'||#{keyword}||'%' -->
+		<!-- </if> -->
+		<!-- <if test="searchType == 'n'.toString()"> -->
+		<!-- and mem_name like '%'||#{keyword}||'%' -->
+		<!-- </if> -->
+	</sql>
+
+	
+	<select id="selectAllList" resultType="libPlan">
+		SELECT *
+		FROM lib_plan
+	</select>
+
+	<insert id="insertPlan" parameterType="libPlan">
+		insert into
+    		lib_plan(lp_no, lp_name, lp_start, lp_end, lp_isclosed, lp_isshow, mem_id)
+		values
+    		(LP_NO_SEQ.nextval, 'insertTest', '20221117', '20221118', 0, 0, 't1')
+	</insert>
+	
+
+
+</mapper>

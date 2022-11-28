@@ -1,0 +1,155 @@
+package bookred.member.dao;
+
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+import bookred.member.command.RentCriteria;
+import bookred.member.dto.RentBookVO;
+import bookred.member.dto.RentBackVO;
+
+public class RentBackDAOImpl implements RentBackDAO {
+
+	private SqlSession session;
+
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public List<RentBookVO> selectLentList(RentCriteria cri, String mem_id) throws SQLException {
+		int startRow = cri.getStartRowNum() + 1;
+		int endRow = startRow + cri.getPerPageNum();
+
+		Map<String, Object> dataParam = new HashMap<String, Object>();
+		dataParam.put("startRow", startRow);
+		dataParam.put("endRow", endRow);
+		dataParam.put("searchType", cri.getSearchType());
+		dataParam.put("keyword", cri.getKeyword());
+		dataParam.put("mem_id", mem_id);
+
+		List<RentBookVO> rentList = new ArrayList<RentBookVO>();
+		rentList = session.selectList("RentBack-Mapper.selectLentList", dataParam);
+
+		return rentList;
+	}
+
+	@Override
+	public int selectLentListCount(RentCriteria cri, String mem_id) throws SQLException {
+		Map<String, Object> dataParam = new HashMap<String, Object>();
+		dataParam.put("cri", cri);
+		dataParam.put("mem_id", mem_id);
+
+		int count = session.selectOne("RentBack-Mapper.selectLentListCount", dataParam);
+		return count;
+	}
+
+	@Override
+	public RentBackVO selectRentByRentNo(int rent_no) throws SQLException {
+		RentBackVO rent = session.selectOne("RentBack-Mapper.selectRentByRentNo", rent_no);
+		return rent;
+	}
+
+	@Override
+	public int selectRentSeqNext() throws SQLException {
+		return session.selectOne("RentBack-Mapper.selectRentSeqNext");
+	}
+
+	@Override
+	public List<RentBackVO> selectAllRentByBookTitle(String book_title) throws SQLException {
+		List<RentBackVO> rent = session.selectList("RentBack-Mapper.selectAllRentByBookTitle", book_title);
+		return rent;
+	}
+
+	
+	@Override
+	public void updateRentDateExtention(RentBookVO rentBack) throws SQLException, ParseException {
+		System.out.println("updateRentDateExtention" + rentBack.getDue_date());
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = df.parse(rentBack.getDue_date());
+		
+		Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        System.out.println("current: " + df.format(cal.getTime()));
+
+        cal.add(Calendar.YEAR, 2000);
+        cal.add(Calendar.DATE, 7);
+        System.out.println("after: " + df.format(cal.getTime()));
+		
+        rentBack.setDue_date( df.format(cal.getTime()));
+		session.update("RentBack-Mapper.updateRentDateExtention", rentBack);
+	}
+	
+
+	@Override
+	public RentBookVO selectReturnDatePlus7day(RentBookVO rentBook) throws SQLException {
+		System.out.println("selectReturnDatePlus7day " + rentBook.getRent_no());
+		System.out.println("selectReturnDatePlus7day " + rentBook.getDue_date());
+		RentBookVO rent_vo = session.selectOne("RentBack-Mapper.selectReturnDatePlus7day", rentBook);
+		System.out.println("selectReturnDatePlus7day " + rent_vo.getDue_date());
+		System.out.println("selectReturnDatePlus7day " + rent_vo.getBook_no());
+		return rent_vo;
+
+	}
+
+	@Override
+	public List<RentBackVO> selectAllReturnList(RentCriteria cri, String mem_id) throws SQLException {
+		int startRow = cri.getStartRowNum() + 1;
+		int endRow = startRow + cri.getPerPageNum();
+
+		Map<String, Object> dataParam = new HashMap<String, Object>();
+		dataParam.put("startRow", startRow);
+		dataParam.put("endRow", endRow);
+		dataParam.put("searchType", cri.getSearchType());
+		dataParam.put("keyword", cri.getKeyword());
+		dataParam.put("mem_id", mem_id);
+
+		List<RentBackVO> allBackList = new ArrayList<RentBackVO>();
+		allBackList = session.selectList("RentBack-Mapper.selectAllBackList", dataParam);
+
+		return allBackList;
+	}
+
+	@Override
+	public int selectAllReturnListCount(RentCriteria cri, String mem_id) throws SQLException {
+		Map<String, Object> dataParam = new HashMap<String, Object>();
+		dataParam.put("cri", cri);
+		dataParam.put("mem_id", mem_id);
+
+		int count = session.selectOne("RentBack-Mapper.selectAllBackListCount", dataParam);
+		return count;
+	}
+
+	@Override
+	public int selectRentNotReturn(String mem_id) throws SQLException {
+		int count = session.selectOne("RentBack-Mapper.selectRentNotReturn", mem_id);
+		return count;
+	}
+
+	@Override
+	public RentBackVO selectBackListByBookNo(int book_no) throws SQLException {
+
+		RentBackVO selectBackListByBookNo = new RentBackVO();
+		selectBackListByBookNo = session.selectOne("RentBack-Mapper.selectBackListByBookNo", book_no);
+		
+		return selectBackListByBookNo;
+
+	}
+
+	@Override
+	public List<RentBackVO> selectRentList(String mem_id) throws SQLException {
+		List<RentBackVO> rentList = session.selectList("RentBack-Mapper.selectRentList", mem_id);
+		return rentList;
+	}
+
+
+}

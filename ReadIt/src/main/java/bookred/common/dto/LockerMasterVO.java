@@ -1,0 +1,20 @@
+package bookred.common.dto;
+
+public class LockerMasterVO {
+	private String locker_num;
+	private int is_usable;
+	
+	public String getLocker_num() {
+		return locker_num;
+	}
+	public void setLocker_num(String locker_num) {
+		this.locker_num = locker_num;
+	}
+	public int getIs_usable() {
+		return is_usable;
+	}
+	public void setIs_usable(int is_usable) {
+		this.is_usable = is_usable;
+	}
+	
+}

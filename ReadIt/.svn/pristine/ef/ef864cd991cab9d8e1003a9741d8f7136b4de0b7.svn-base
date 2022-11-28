@@ -1,0 +1,38 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="VolApply-Mapper">
+
+	<select id="selectVolApplyByVaNo" parameterType="int"
+		resultType="volApply">
+		select
+		*
+		from vol_apply
+		where va_no=#{va_no}
+	</select>
+
+	<select id ="selectVolApply" resultType="volApply" parameterType="int">
+		select * from vol_apply
+		where vb_no = #{vb_no}
+	</select>
+	
+
+	<update id="updateVolApply" parameterType="volApply">
+		update vol_apply
+		set
+		is_approved=#{is_approved}
+		where
+		mem_id=#{mem_id}
+		and vb_no= #{vb_no}
+	</update>
+
+	<update id="deleteVolApply" parameterType="int">
+		delete
+		from vol_apply
+		where
+		va_no=#{va_no}
+	</update>
+	
+	
+</mapper>	

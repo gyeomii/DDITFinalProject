@@ -1,0 +1,158 @@
+package bookred.member.service;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import bookred.admin.command.Criteria;
+import bookred.admin.command.PageMaker;
+import bookred.admin.dto.SelectAdminVO;
+import bookred.book.command.BookCriteria;
+import bookred.book.command.BookPageMaker;
+import bookred.exception.InvalidPasswordException;
+import bookred.exception.NotFoundIdException;
+import bookred.member.dao.MemberDAO;
+import bookred.member.dao.ReserveDAO;
+import bookred.member.dto.BkReserveVO;
+import bookred.member.dto.CouponVO;
+import bookred.member.dto.MemberVO;
+import bookred.member.dto.RentBackVO;
+
+public class MemberServiceImpl implements MemberService {
+
+	private MemberDAO memberDAO;
+	private ReserveDAO reserveDAO;
+
+	public void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
+	}
+	public void setReserveDAO(ReserveDAO reserveDAO) {
+		this.reserveDAO = reserveDAO;
+	}
+
+	@Override
+	public void login(String id, String pwd) throws NotFoundIdException, InvalidPasswordException, SQLException {
+		MemberVO member = memberDAO.selectMemberById(id);
+		if (member == null)
+			throw new NotFoundIdException();
+		if (!pwd.equals(member.getMem_pwd()))
+			throw new InvalidPasswordException();
+
+	}
+
+	@Override
+	public Map<String, Object> getMemberList(BookCriteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<MemberVO> memberList = memberDAO.selectMemberList(cri);
+		List<Integer> memberCountList = new ArrayList<Integer>();
+		
+		Integer memAllCount = memberDAO.selectMemberCount();
+		Integer memRank1Count = memberDAO.selectRankmemCount(1);
+		Integer memRank2Count = memberDAO.selectRankmemCount(2);
+		Integer memRank3Count = memberDAO.selectRankmemCount(3);
+		Integer memNewCount = memberDAO.selectNewMemCountbyMonth();
+		Integer memXmemCount = memberDAO.selectXMemCount();
+		
+		memberCountList.add(memAllCount);
+		memberCountList.add(memRank1Count);
+		memberCountList.add(memRank2Count);
+		memberCountList.add(memRank3Count);
+		memberCountList.add(memNewCount);
+		memberCountList.add(memXmemCount);
+		int totalCount = memberDAO.selectMemberListCount(cri);
+		
+		System.out.println("숫자 " + memberCountList.get(0));
+		System.out.println(memberCountList.get(0));
+		System.out.println(memberCountList.get(0).getClass().getName());
+
+		BookPageMaker pageMaker = new BookPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		
+		dataMap.put("memberList", memberList);
+		dataMap.put("pageMaker", pageMaker);
+		dataMap.put("memberCountList", memberCountList);
+
+		return dataMap;
+	}
+	
+	@Override
+	public Map<String, Object> getAdminList(Criteria cri) throws SQLException {
+
+		Map<String, Object> dataMap = null;
+		
+		List<SelectAdminVO> adminList = memberDAO.selectAdminList(cri);
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(memberDAO.selectAdminListCount(cri));
+
+		dataMap = new HashMap<String, Object>();
+		dataMap.put("adminList", adminList);
+		dataMap.put("pageMaker", pageMaker);
+
+		return dataMap;
+	}
+
+	@Override
+	public Map<String, Object> getMemberDetail(String mem_id) throws SQLException {
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+		MemberVO member = memberDAO.selectMemberById(mem_id);
+		List<BkReserveVO> reserveList = reserveDAO.selectReserveList(mem_id);
+		List<CouponVO> couponAvailableList = reserveDAO.selectAvailableCoupons(mem_id);
+		List<RentBackVO> rentList = reserveDAO.selectRentBookList(mem_id);
+
+		dataMap.put("rentList", rentList);
+		dataMap.put("reserveList", reserveList);
+		dataMap.put("couponAvailableList", couponAvailableList);
+		dataMap.put("member", member); 
+	    return dataMap;
+	}
+	
+	
+	@Override
+	public MemberVO getMember(String id) throws SQLException {
+		MemberVO member = memberDAO.selectMemberById(id);
+	    return member;
+	}
+
+	@Override
+	public void regist(MemberVO member) throws Exception {
+		memberDAO.insertMember(member);
+	}
+
+	@Override
+	public void modify(MemberVO member) throws Exception {
+		memberDAO.updateMember(member);
+
+	}
+
+	@Override
+	public void remove(String id) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public int getMemberCount(String id) throws SQLException {
+		int count = memberDAO.selectMemberCountById(id);
+		return count;
+	}
+
+	@Override
+	public void drop(MemberVO member) throws Exception {
+		memberDAO.dropMember(member);
+		
+	}
+
+	@Override
+	public List<MemberVO> getMemberName(String mem_name) throws SQLException {
+		List<MemberVO> member = memberDAO.selectMemberByName(mem_name);
+	    return member;
+	}
+
+	
+
+}

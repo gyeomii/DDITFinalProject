@@ -1,0 +1,61 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Reserve-Mapper">
+	
+	<select id="selectRentableByISBN" resultType="int">
+		select book_rentable
+		from book_stock
+		where book_isbn = #{book_isbn}		
+	</select>
+	<update id="updateBookStock">
+		update book_stock
+		set book_rentable = book_rentable -1
+		where book_isbn = #{book_isbn}
+	</update>
+	<select id="selectBookByISBN" resultType="book">
+		select *
+		from (
+        		select book.*, row_number() over(PARTITION by book_isbn order by book_isbn) as rn
+        		from book
+    	)
+		where rn = 1 and book_isbn = #{book_isbn}
+	</select>
+	<select id="selectRentBookList" resultType="rentBack">
+		select * 
+		from rent_back 
+		where is_return = 'N' and mem_id = #{mem_id}
+	</select>
+	<select id="selectReserveList" resultType="bookReserve">
+		select *
+		from book_reserve
+		where mem_id = #{mem_id}
+	</select>
+	
+	<select id="selectLockerList" resultType="lockerMaster">
+		select *
+		from locker_master
+	</select>
+	<update id="updateLockerMaster">
+		update locker_master
+		set is_usable = #{is_usable}
+		where locker_num = #{locker_num}
+	</update>
+	<insert id="insertRM" parameterType="rm">
+		insert into rm(rm_no, want_date, mem_id, rent_code) 
+		values(#{rm_no}, #{want_date}, #{mem_id},#{rent_code})
+	</insert>
+	<insert id="insertBookReserve">
+		insert into book_reserve(reserve_no, mem_id, isbn, cart_no, rm_no)
+		values(reserve_no_seq.nextval, #{mem_id}, #{isbn}, #{cart_no}, #{rm_no})
+	</insert>
+	<!-- 대출증 생성시 추가할 예정 -->
+	<insert id="insertLocker" parameterType="locker">
+		insert into locker(lk_no, locker_num, lk_ispickup, rm_no)
+		values(lk_no_seq.nextval, #{locker_num}, #{lk_ispickup},#{rm_no})
+	</insert>
+	<select id="selectRMSeqNextVal" resultType="int">
+		select rm_no_seq.nextVal from dual	
+	</select>
+</mapper>

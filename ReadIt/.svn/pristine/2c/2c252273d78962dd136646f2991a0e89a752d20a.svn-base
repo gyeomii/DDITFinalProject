@@ -1,0 +1,90 @@
+package bookred.member.dto;
+
+import java.util.Date;
+
+
+public class RMVO {
+	
+	private	int rm_no;
+	private Date rm_date = new Date();
+	private	Date want_date = new Date();
+	private	String mem_id;
+	private	int rent_code;
+	private	int rent_status;
+	
+	// 예약 방법별 데이터
+	
+	// 배송예정일
+	private Date dv_dudate;
+	
+	// 차량번호
+	private String dt_car_no;	
+	
+	// 사물함 번호
+	private String locker_num;
+	
+	public Date getRm_date() {
+		return rm_date;
+	}
+	public void setRm_date(Date rm_date) {
+		this.rm_date = rm_date;
+	}
+	public Date getDv_dudate() {
+		return dv_dudate;
+	}
+	public void setDv_dudate(Date dv_dudate) {
+		this.dv_dudate = dv_dudate;
+	}
+	public String getDt_car_no() {
+		return dt_car_no;
+	}
+	public void setDt_car_no(String dt_car_no) {
+		this.dt_car_no = dt_car_no;
+	}
+	public String getLocker_num() {
+		return locker_num;
+	}
+	public void setLocker_num(String locker_num) {
+		this.locker_num = locker_num;
+	}
+	public int getRent_status() {
+		return rent_status;
+	}
+	public void setRent_status(int rent_status) {
+		this.rent_status = rent_status;
+	}
+	public int getRm_no() {
+		return rm_no;
+	}
+	public void setRm_no(int rm_no) {
+		this.rm_no = rm_no;
+	}
+	public Date getWant_date() {
+		return want_date;
+	}
+	public void setWant_date(Date want_date) {
+		this.want_date = want_date;
+	}
+	public String getMem_id() {
+		return mem_id;
+	}
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+	public int getRent_code() {
+		return rent_code;
+	}
+	public void setRent_code(int rent_code) {
+		this.rent_code = rent_code;
+	}
+	@Override
+	public String toString() {
+		return "RMVO [rm_no=" + rm_no + ", rm_date=" + rm_date + ", want_date=" + want_date + ", mem_id=" + mem_id
+				+ ", rent_code=" + rent_code + ", rent_status=" + rent_status + ", dv_dudate=" + dv_dudate
+				+ ", dt_car_no=" + dt_car_no + ", locker_num=" + locker_num + "]";
+	}
+	
+	
+	
+
+}

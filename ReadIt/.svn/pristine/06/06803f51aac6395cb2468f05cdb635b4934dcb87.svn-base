@@ -1,0 +1,76 @@
+package bookred.admin.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
+	@Controller
+	@RequestMapping("/admin/facilityManage")
+	public class FacilityManagementController {
+
+	@RequestMapping("/restrictedArea")
+	public String restrictedArea() throws Exception{
+		String url = "admin/facility/res/restrictedArea";
+		return url;
+	}
+	@RequestMapping("/restrictedArea/log")
+	public String restrictedAreaLog() throws Exception{
+		String url = "admin/facility/res/restrictedAreaLog";
+		return url;
+	} 
+	
+	
+    @RequestMapping("/studyRoom")
+	public String studyRoom() throws Exception{ 
+		String url ="admin/facility/multi/studyRoom"; 
+		return url; 
+	}
+    
+    
+    
+    //-------------------------------------------------------
+    @RequestMapping("/multimediaRoom")
+    public String multimediaRoom() throws Exception{
+    	String url = "admin/facility/multi/multimediaRoom";
+    	return url;
+    }
+    
+    
+    
+    
+    
+    @PostMapping(value = "/ajaxPlace" )
+    @ResponseBody
+    public String ajaxPlace(String day,String place)throws Exception {
+    	
+    	
+    	
+    	
+    	return day;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //------------------------------------------------------------
+    
+    
+    
+    
+    
+    @RequestMapping("/meetingRoom")
+    public String meetingRoom() throws Exception{
+    	String url = "admin/facility/multi/meetingRoom";
+    	return url;
+    }
+	
+    
+	
+}

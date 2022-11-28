@@ -1,0 +1,320 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%-- <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+    <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Invoice List - Vuexy - Bootstrap HTML admin template</title>
+    <link rel="apple-touch-icon" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/images/ico/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/tables/datatable/extensions/dataTables.checkboxes.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/themes/bordered-layout.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/themes/semi-dark-layout.css">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/pages/app-invoice-list.css">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/assets/css/style.css">
+    <!-- END: Custom CSS-->
+
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+    <!-- BEGIN: Header-->
+    <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl">
+        <div class="navbar-container d-flex content">
+            <div class="bookmark-wrapper d-flex align-items-center">
+                <ul class="nav navbar-nav d-xl-none">
+                    <li class="nav-item"><a class="nav-link menu-toggle" href="#"><i class="ficon" data-feather="menu"></i></a></li>
+                </ul>
+                <ul class="nav navbar-nav bookmark-icons">
+                    <li class="nav-item d-none d-lg-block"><a class="nav-link" href="/readit/index.do" data-bs-toggle="tooltip" data-bs-placement="bottom" title="홈페이지"><i class="ficon" data-feather="home"></i></a></li>
+                    <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-chat.html" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Chat"><i class="ficon" data-feather="message-square"></i></a></li>
+                    <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-calendar.html" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Calendar"><i class="ficon" data-feather="calendar"></i></a></li>
+                    <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-todo.html" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Todo"><i class="ficon" data-feather="check-square"></i></a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li class="nav-item d-none d-lg-block"><a class="nav-link bookmark-star"><i class="ficon text-warning" data-feather="star"></i></a>
+                        <div class="bookmark-input search-input">
+                            <div class="bookmark-input-icon"><i data-feather="search"></i></div>
+                            <input class="form-control input" type="text" placeholder="Bookmark" tabindex="0" data-search="search">
+                            <ul class="search-list search-list-bookmark"></ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+                  <div class="demo-inline-spacing" style="margin-left: 60px;">
+                           <button type="button" class="btn btn-flat-success" style="padding-bottom: 0px;padding-top: 0px;margin-top: 0px;">
+                               <i data-feather="check" class="me-25"></i>
+                               <span style="font-weight: bold">도서 대출/반납</span>
+                           </button>
+                           <button type="button" class="btn btn-flat-success" style="padding-bottom: 0px;padding-top: 0px;margin-top: 0px;">
+                               <i data-feather="check" class="me-25"></i>
+                                <span style="font-weight: bold"  onclick="OpenWindow('<%=request.getContextPath()%>/admin/driveThrough.do','도서드라이브스루',1000,800);">드라이브스루</span>
+                                
+                           </button>
+                  		   <button type="button" class="btn btn-flat-success" style="padding-bottom: 0px;padding-top: 0px;margin-top: 0px;">
+                               <i data-feather="check" class="me-25"></i>
+                               <span style="font-weight: bold">신규도서등록</span>
+                           </button>
+                              <button type="button" class="btn btn-flat-success" style="padding-bottom: 0px;padding-top: 0px;margin-top: 0px;">
+                               <i data-feather="check" class="me-25"></i>
+                               <span style="font-weight: bold" onclick="OpenWindow('<%=request.getContextPath()%>/admin/quickNewBook.do','도서입고관리',500,800);">도서입고관리</span>
+                               </button>
+              	</div>
+                    
+                    
+            <ul class="nav navbar-nav align-items-center ms-auto">
+                <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon" data-feather="search"></i></a>
+                    <div class="search-input">
+                        <div class="search-input-icon"><i data-feather="search"></i></div>
+                        <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="-1" data-search="search">
+                        <div class="search-input-close"><i data-feather="x"></i></div>
+                        <ul class="search-list search-list-main"></ul>
+                    </div>
+                </li>
+                <li class="nav-item dropdown dropdown-cart me-25"><a class="nav-link" href="#" data-bs-toggle="dropdown"><i class="ficon" data-feather="shopping-cart"></i><span class="badge rounded-pill bg-primary badge-up cart-item-count">6</span></a>
+                    <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
+                    </ul>
+                </li>
+                <li class="nav-item dropdown dropdown-notification me-25"><a class="nav-link" href="#" data-bs-toggle="dropdown"><i class="ficon" data-feather="bell"></i><span class="badge rounded-pill bg-danger badge-up">5</span></a>
+                    <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
+                        <li class="dropdown-menu-header">
+                            <div class="dropdown-header d-flex">
+                                <h4 class="notification-title mb-0 me-auto">Notifications</h4>
+                                <div class="badge rounded-pill badge-light-primary">6 New</div>
+                            </div>
+                        </li>
+                        <li class="dropdown-menu-footer"><a class="btn btn-primary w-100" href="#">Read all notifications</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown dropdown-user">
+                	<a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="user-nav d-sm-flex d-none">
+                        	<span class="user-name fw-bolder">${loginUser.mem_name }</span>
+                        	<span class="badge rounded-pill badge-light-success">Login ID : ${loginUser.mem_id }</span>
+                        </div><span class="avatar"><img class="round" src="<%=request.getContextPath()%>/resources/images/20.png" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
+                    	<a class="dropdown-item" href="<%=request.getContextPath() %>/index.do"><i class="me-50" data-feather="shuffle"></i> Main Page</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath() %>/common/logout.do"><i class="me-50" data-feather="log-out"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- END: Header-->
+
+
+    <!-- BEGIN: Main Menu-->
+    <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav flex-row">
+                <li class="nav-item me-auto"><a class="navbar-brand" href="<%=request.getContextPath() %>/admin/index.do"><span class="brand-logo">
+                            <img src="<%=request.getContextPath() %>/resources/images/1.jpg" alt="logo Picture"></span>
+                        <h2 class="brand-text">북적북적</h2>
+                    </a>
+                 </li>
+<!--                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li> -->
+            </ul>
+        </div>
+        <div class="shadow-bottom"></div>
+        <div class="main-menu-content">
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+            
+            	                 <li class=" nav-item">
+               		 <div class="card card-profile" style="margin-top: 100px;">
+                            <div class="card-body">
+                                <div class="profile-image-wrapper">
+                                    <div class="profile-image">
+                                        <div class="avatar">
+                                            <img src="<%=request.getContextPath() %>/resources/images/20.png" alt="Profile Picture">
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3>${loginUser.mem_name }</h3>
+                                <h6 class="text-muted">선임관리자or일반관리자</h6>
+                                <span class="badge badge-light-success profile-badge">관리자 접속중</span>
+                                <hr class="mb-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                	딱 한줄만 사용 가능
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                </li>
+            
+                <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Menu</span><i data-feather="more-horizontal"></i>
+                </li>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">회원 관리</span></a>
+                    <ul class="menu-content">
+<!--                     <li class="active"> 이거 하면 항상 켜있는 상태로 유지-->
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/userManage/adminList.do','M910100')"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">관리자 관리</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/userManage/memberList.do','M910200')"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Preview">일반회원 관리</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="shield"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">도서관리</span></a>
+                    <ul class="menu-content">
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/bookManage/status.do','M920100')" ><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">도서 분류</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/bookManage/best.do','M920200')" ><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">추천 도서</span></a>
+                        </li>
+                       <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/bookManage/rent.do','M920300')" ><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">대출 및 반납</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/bookManage/location.do','M920401')"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">지정 위치</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/bookManage/stupid.do','M920500')"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">엉뚱 도서</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/bookManage/donation.do','M920601')"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">기타 관리</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="eCommerce">시설관리</span></a>
+                    <ul class="menu-content">
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/facilityManage/restrictedArea.do','M930100')" ><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">출입 제한 구역</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/facilityManage/studyRoom.do','M930200')" ><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">독서실</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/facilityManage/multimediaRoom.do','M930300')" ><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Wish List">멀티미디어실</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/facilityManage/meetingRoom.do','M930400')" ><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Checkout">회의실</span></a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="User">게시판</span></a>
+                    <ul class="menu-content">
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/main/board/notice/list.do','M030100')" ><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">공지사항</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="View">비치희망도서</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/board/qna.do','M940300')" ><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="View">1:1문의</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/main/board/lost/list.do','M030300')"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="View">분실물</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/main/board/faq/list.do','M030200')" ><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="View">자주 묻는 질문</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/main/board/volBoard/list.do','M030500')"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="View">봉사자</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/main/board/event/list.do','M030400')"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="View">행사/이벤트</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Pages">마이페이지</span></a>
+                    <ul class="menu-content">
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/mypage/prevMyInfo.do','M950100')" ><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Account Settings">개인정보</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/mypage/toDoList.do','M950200')"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Profile">To Do List</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/mypage/toDoList.do','M950200')"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="FAQ">알림내역</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" onclick="goPage('<%=request.getContextPath()%>/admin/mypage/libPlan.do','M950400')"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Knowledge Base">도서관 일정</span></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- END: Main Menu-->
+
+    <!-- BEGIN: Content-->
+    <div class="" style="padding-top: 88px; padding-left: 300px; padding-right: 30px; overflow-y: auto; overflow-x:hidden;">
+     	<iframe name="ifr" id="ifr" src="" frameborder="0"  style="width:100%;height:85vh; overflow-x:hidden"></iframe> 				
+ 	</div>
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+    <!-- BEGIN: Footer-->
+    <footer class="footer footer-static footer-light">
+        <p class="clearfix mb-0"><span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2021<a class="ms-25" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent</a><span class="d-none d-sm-inline-block">, All rights Reserved</span></span><span class="float-md-end d-none d-md-block">Hand-crafted & Made with<i data-feather="heart"></i></span></p>
+    </footer>
+    <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+    <!-- END: Footer-->
+
+
+    <!-- BEGIN: Vendor JS-->
+    <script src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/vendors.min.js"></script>
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/extensions/moment.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/responsive.bootstrap5.js"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/core/app-menu.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/core/app.js"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/scripts/pages/app-invoice-list.js"></script>
+    <!-- END: Page JS-->
+    <script src="<%=request.getContextPath()%>/resources/js/common.js"></script>
+    <%@ include file="./index_js.jsp" %>
+
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        })
+        
+         function parentsUrl(mCode){
+        	var url = window.top.location.href;
+        	console.log(url);
+    	    var renewURL = url.substring(0, url.indexOf(".do")+3);
+    	    
+    	    if (mCode != 'M900000') {
+    	        renewURL += "?mCode="+mCode;
+    	    }
+    	    
+        	history.pushState(mCode, null, renewURL);
+        }
+    </script>
+</body>
+<!-- END: Body-->
+
+</html>

@@ -1,0 +1,68 @@
+package bookred.main.service;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import bookred.admin.command.Criteria;
+import bookred.admin.command.PageMaker;
+import bookred.main.dao.VolBoardDAO;
+import bookred.main.dto.VolBoardVO;
+
+public class VolBoardServiceImpl implements VolBoardService {
+
+	private VolBoardDAO volBoardDAO;
+	public void setVolBoardDAO(VolBoardDAO volBoardDAO) {
+		this.volBoardDAO = volBoardDAO;
+	}
+	@Override
+	public Map<String, Object> getVolBoardList(Criteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+
+		List<VolBoardVO> volBoardList = volBoardDAO.selectVolBoardList(cri);
+		// 전체 board 개수
+		int totalCount = volBoardDAO.selectVolBoardListCount(cri);
+
+		// PageMaker 생성.
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+
+		dataMap.put("volBoardList", volBoardList);
+		dataMap.put("pageMaker", pageMaker);
+
+		return dataMap;
+	}
+	
+	@Override
+	public VolBoardVO getVolBoard(int vb_no) throws SQLException {
+		VolBoardVO volBoard =volBoardDAO.selectVolBoardByVbNo(vb_no);
+		return volBoard;
+	}
+	@Override
+	public VolBoardVO getVolBoardFotModify(int vb_no) throws SQLException {
+		VolBoardVO volBoard = volBoardDAO.selectVolBoardByVbNo(vb_no);
+		return volBoard;
+	}
+	@Override
+	public void regist(VolBoardVO volBoard) throws SQLException {
+		int vb_no = volBoardDAO.selectVolBoardSeqNext();
+		volBoard.setVb_no(vb_no);
+		volBoardDAO.insertVolBoard(volBoard);
+		
+	}
+	@Override
+	public void modify(VolBoardVO volBoard) throws SQLException {
+		volBoardDAO.updateVolBoard(volBoard);
+		
+	}
+	@Override
+	public void remove(int vb_no) throws SQLException {
+		volBoardDAO.deleteVolBoard(vb_no);
+		
+	}
+	
+	
+
+}

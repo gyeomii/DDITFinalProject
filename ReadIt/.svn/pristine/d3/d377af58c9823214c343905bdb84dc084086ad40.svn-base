@@ -1,0 +1,41 @@
+package bookred.admin.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+import bookred.admin.command.FacilityManagermentCommand;
+import bookred.admin.dto.FacilityManagementVO;
+import bookred.main.dto.MultiOneVO;
+
+public class FacilityManagementDAOImpl implements FacilityManagementDAO {
+
+	private SqlSession sqlSession;
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+	
+	@Override
+	public List<MultiOneVO> selectPlace() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<FacilityManagementVO> getProfile(FacilityManagementVO facilityManagerment) {
+		System.out.println("DAO:"+facilityManagerment);
+		List<FacilityManagementVO> data = sqlSession.selectList("FacilityManagement-Mapper.selectProfile",facilityManagerment);
+		return data;
+	}
+
+	@Override
+	public int getCount(String roomNum) {
+		int data = sqlSession.selectOne("FacilityManagement-Mapper.selectCount",roomNum);
+		return data;
+	}
+
+	
+	
+}

@@ -1,0 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<script>
+	if('${loginUser.userType == 0}'){
+		location.href="<%=request.getContextPath()%>/index.do";	
+	}else if('${loginUser.userType == 1}'){
+		location.href="<%=request.getContextPath()%>/index.do";	
+		<%-- location.href="<%=request.getContextPath()%>/common/loginForm.do"; --%>			
+	}else{
+		location.href="<%=request.getContextPath()%>/index.do";	
+	}
+</script>

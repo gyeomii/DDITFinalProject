@@ -1,0 +1,285 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+<meta name="description"
+	content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+<meta name="keywords"
+	content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+<meta name="author" content="PIXINVENT">
+<title>Dashboard ecommerce - Vuexy - Bootstrap HTML admin
+	template</title>
+<link rel="apple-touch-icon"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/images/ico/apple-icon-120.png">
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/images/ico/favicon.ico">
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
+	rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&display=swap"
+	rel="stylesheet">
+<!-- BEGIN: Vendor CSS-->
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/vendors.min.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/charts/apexcharts.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/extensions/toastr.min.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/forms/select/select2.min.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/tables/datatable/buttons.bootstrap5.min.css">
+
+<!-- END: Vendor CSS-->
+
+<!-- BEGIN: Theme CSS-->
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/bootstrap-extended.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/colors.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/components.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/themes/dark-layout.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/themes/bordered-layout.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/themes/semi-dark-layout.css">
+
+<!-- BEGIN: Page CSS-->
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/core/menu/menu-types/horizontal-menu.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/pages/dashboard-ecommerce.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/plugins/charts/chart-apex.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/plugins/extensions/ext-component-toastr.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/core/menu/menu-types/vertical-menu.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/pages/page-profile.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/plugins/forms/form-validation.css">
+<!-- END: Page CSS-->
+
+<!-- BEGIN: Custom CSS-->
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/assets/css/style.css">
+<!-- END: Custom CSS-->
+</head>
+<body>
+	<div class="col-12">
+                            <div class="card">
+                                <div class="
+            card-header
+            d-flex
+            flex-sm-row flex-column
+            justify-content-md-between
+            align-items-start
+            justify-content-start
+          ">
+                                    <div>
+                                        <h4 class="card-title">Line Chart</h4>
+                                        <span class="card-subtitle text-muted">Commercial networks</span>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar font-medium-2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                        <input type="text" class="form-control flat-picker bg-transparent border-0 shadow-none flatpickr-input" placeholder="YYYY-MM-DD" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="card-body" style="position: relative;">
+                                    <div id="line-area-chart" style="min-height: 400px;"><div id="apexchartsmsjbg3dt" class="apexcharts-canvas apexchartsmsjbg3dt apexcharts-theme-light" style="width: 1398px; height: 400px;"><svg id="SvgjsSvg1006" width="1398" height="400" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" class="apexcharts-svg apexcharts-zoomable hovering-zoom" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><foreignObject x="0" y="0" width="1398" height="400"><div class="apexcharts-legend apexcharts-align-start position-top" xmlns="http://www.w3.org/1999/xhtml" style="right: 0px; position: absolute; left: 0px; top: 4px; max-height: 200px;"><div class="apexcharts-legend-series" rel="1" seriesname="Visits" data:collapsed="false" style="margin: 2px 5px;"><span class="apexcharts-legend-marker" rel="1" data:collapsed="false" style="background: rgb(164, 248, 205) !important; color: rgb(164, 248, 205); height: 12px; width: 12px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 12px;"></span><span class="apexcharts-legend-text" rel="1" i="0" data:default-text="Visits" data:collapsed="false" style="color: rgb(55, 61, 63); font-size: 12px; font-weight: 400; font-family: Helvetica, Arial, sans-serif;">Visits</span></div><div class="apexcharts-legend-series" rel="2" seriesname="Clicks" data:collapsed="false" style="margin: 2px 5px;"><span class="apexcharts-legend-marker" rel="2" data:collapsed="false" style="background: rgb(96, 242, 202) !important; color: rgb(96, 242, 202); height: 12px; width: 12px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 12px;"></span><span class="apexcharts-legend-text" rel="2" i="1" data:default-text="Clicks" data:collapsed="false" style="color: rgb(55, 61, 63); font-size: 12px; font-weight: 400; font-family: Helvetica, Arial, sans-serif;">Clicks</span></div><div class="apexcharts-legend-series" rel="3" seriesname="Sales" data:collapsed="false" style="margin: 2px 5px;"><span class="apexcharts-legend-marker" rel="3" data:collapsed="false" style="background: rgb(43, 218, 199) !important; color: rgb(43, 218, 199); height: 12px; width: 12px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 12px;"></span><span class="apexcharts-legend-text" rel="3" i="2" data:default-text="Sales" data:collapsed="false" style="color: rgb(55, 61, 63); font-size: 12px; font-weight: 400; font-family: Helvetica, Arial, sans-serif;">Sales</span></div></div><style type="text/css">	
+    	
+      .apexcharts-legend {	
+        display: flex;	
+        overflow: auto;	
+        padding: 0 10px;	
+      }	
+      .apexcharts-legend.position-bottom, .apexcharts-legend.position-top {	
+        flex-wrap: wrap	
+      }	
+      .apexcharts-legend.position-right, .apexcharts-legend.position-left {	
+        flex-direction: column;	
+        bottom: 0;	
+      }	
+      .apexcharts-legend.position-bottom.apexcharts-align-left, .apexcharts-legend.position-top.apexcharts-align-left, .apexcharts-legend.position-right, .apexcharts-legend.position-left {	
+        justify-content: flex-start;	
+      }	
+      .apexcharts-legend.position-bottom.apexcharts-align-center, .apexcharts-legend.position-top.apexcharts-align-center {	
+        justify-content: center;  	
+      }	
+      .apexcharts-legend.position-bottom.apexcharts-align-right, .apexcharts-legend.position-top.apexcharts-align-right {	
+        justify-content: flex-end;	
+      }	
+      .apexcharts-legend-series {	
+        cursor: pointer;	
+        line-height: normal;	
+      }	
+      .apexcharts-legend.position-bottom .apexcharts-legend-series, .apexcharts-legend.position-top .apexcharts-legend-series{	
+        display: flex;	
+        align-items: center;	
+      }	
+      .apexcharts-legend-text {	
+        position: relative;	
+        font-size: 14px;	
+      }	
+      .apexcharts-legend-text *, .apexcharts-legend-marker * {	
+        pointer-events: none;	
+      }	
+      .apexcharts-legend-marker {	
+        position: relative;	
+        display: inline-block;	
+        cursor: pointer;	
+        margin-right: 3px;	
+        border-style: solid;
+      }	
+      	
+      .apexcharts-legend.apexcharts-align-right .apexcharts-legend-series, .apexcharts-legend.apexcharts-align-left .apexcharts-legend-series{	
+        display: inline-block;	
+      }	
+      .apexcharts-legend-series.apexcharts-no-click {	
+        cursor: auto;	
+      }	
+      .apexcharts-legend .apexcharts-hidden-zero-series, .apexcharts-legend .apexcharts-hidden-null-series {	
+        display: none !important;	
+      }	
+      .apexcharts-inactive-legend {	
+        opacity: 0.45;	
+      }</style></foreignObject><g id="SvgjsG1008" class="apexcharts-inner apexcharts-graphical" transform="translate(49.265625, 50)"><defs id="SvgjsDefs1007"><clipPath id="gridRectMaskmsjbg3dt"><rect id="SvgjsRect1014" width="1331.3983993530273" height="314.73" x="-4" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="gridRectMarkerMaskmsjbg3dt"><rect id="SvgjsRect1015" width="1327.3983993530273" height="314.73" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs><line id="SvgjsLine1013" x1="330.34959983825684" y1="0" x2="330.34959983825684" y2="310.73" stroke="#b6b6b6" stroke-dasharray="3" class="apexcharts-xcrosshairs" x="330.34959983825684" y="0" width="1" height="310.73" fill="#b1b9c4" filter="none" fill-opacity="0.9" stroke-width="1"></line><g id="SvgjsG1029" class="apexcharts-xaxis" transform="translate(0, 0)"><g id="SvgjsG1030" class="apexcharts-xaxis-texts-g" transform="translate(0, -4)"><text id="SvgjsText1032" font-family="Helvetica, Arial, sans-serif" x="0" y="339.73" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1033">7/12</tspan><title>7/12</title></text><text id="SvgjsText1035" font-family="Helvetica, Arial, sans-serif" x="110.2831999460856" y="339.73" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1036">8/12</tspan><title>8/12</title></text><text id="SvgjsText1038" font-family="Helvetica, Arial, sans-serif" x="220.56639989217123" y="339.73" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1039">9/12</tspan><title>9/12</title></text><text id="SvgjsText1041" font-family="Helvetica, Arial, sans-serif" x="330.8495998382569" y="339.73" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1042">10/12</tspan><title>10/12</title></text><text id="SvgjsText1044" font-family="Helvetica, Arial, sans-serif" x="441.1327997843425" y="339.73" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1045">11/12</tspan><title>11/12</title></text><text id="SvgjsText1047" font-family="Helvetica, Arial, sans-serif" x="551.4159997304281" y="339.73" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1048">12/12</tspan><title>12/12</title></text><text id="SvgjsText1050" font-family="Helvetica, Arial, sans-serif" x="661.6991996765137" y="339.73" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1051">13/12</tspan><title>13/12</title></text><text id="SvgjsText1053" font-family="Helvetica, Arial, sans-serif" x="771.9823996225992" y="339.73" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1054">14/12</tspan><title>14/12</title></text><text id="SvgjsText1056" font-family="Helvetica, Arial, sans-serif" x="882.2655995686848" y="339.73" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1057">15/12</tspan><title>15/12</title></text><text id="SvgjsText1059" font-family="Helvetica, Arial, sans-serif" x="992.5487995147704" y="339.73" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1060">16/12</tspan><title>16/12</title></text><text id="SvgjsText1062" font-family="Helvetica, Arial, sans-serif" x="1102.8319994608562" y="339.73" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1063">17/12</tspan><title>17/12</title></text><text id="SvgjsText1065" font-family="Helvetica, Arial, sans-serif" x="1213.1151994069419" y="339.73" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1066">18/12</tspan><title>18/12</title></text><text id="SvgjsText1068" font-family="Helvetica, Arial, sans-serif" x="1323.3983993530276" y="339.73" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1069">19/12</tspan><title>19/12</title></text></g><line id="SvgjsLine1070" x1="0" y1="311.73" x2="1323.3983993530273" y2="311.73" stroke="#e0e0e0" stroke-dasharray="0" stroke-width="1"></line></g><g id="SvgjsG1083" class="apexcharts-grid"><g id="SvgjsG1084" class="apexcharts-gridlines-horizontal"><line id="SvgjsLine1112" x1="0" y1="0" x2="1323.3983993530273" y2="0" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1113" x1="0" y1="77.6825" x2="1323.3983993530273" y2="77.6825" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1114" x1="0" y1="155.365" x2="1323.3983993530273" y2="155.365" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1115" x1="0" y1="233.0475" x2="1323.3983993530273" y2="233.0475" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1116" x1="0" y1="310.73" x2="1323.3983993530273" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line></g><g id="SvgjsG1085" class="apexcharts-gridlines-vertical"><line id="SvgjsLine1086" x1="0" y1="0" x2="0" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1088" x1="110.28319994608562" y1="0" x2="110.28319994608562" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1090" x1="220.56639989217123" y1="0" x2="220.56639989217123" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1092" x1="330.84959983825684" y1="0" x2="330.84959983825684" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1094" x1="441.13279978434247" y1="0" x2="441.13279978434247" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1096" x1="551.4159997304281" y1="0" x2="551.4159997304281" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1098" x1="661.6991996765137" y1="0" x2="661.6991996765137" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1100" x1="771.9823996225992" y1="0" x2="771.9823996225992" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1102" x1="882.2655995686848" y1="0" x2="882.2655995686848" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1104" x1="992.5487995147704" y1="0" x2="992.5487995147704" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1106" x1="1102.831999460856" y1="0" x2="1102.831999460856" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1108" x1="1213.1151994069417" y1="0" x2="1213.1151994069417" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1110" x1="1323.3983993530273" y1="0" x2="1323.3983993530273" y2="310.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line></g><line id="SvgjsLine1087" x1="0" y1="311.73" x2="0" y2="317.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-xaxis-tick"></line><line id="SvgjsLine1089" x1="110.28319994608562" y1="311.73" x2="110.28319994608562" y2="317.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-xaxis-tick"></line><line id="SvgjsLine1091" x1="220.56639989217123" y1="311.73" x2="220.56639989217123" y2="317.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-xaxis-tick"></line><line id="SvgjsLine1093" x1="330.84959983825684" y1="311.73" x2="330.84959983825684" y2="317.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-xaxis-tick"></line><line id="SvgjsLine1095" x1="441.13279978434247" y1="311.73" x2="441.13279978434247" y2="317.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-xaxis-tick"></line><line id="SvgjsLine1097" x1="551.4159997304281" y1="311.73" x2="551.4159997304281" y2="317.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-xaxis-tick"></line><line id="SvgjsLine1099" x1="661.6991996765137" y1="311.73" x2="661.6991996765137" y2="317.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-xaxis-tick"></line><line id="SvgjsLine1101" x1="771.9823996225992" y1="311.73" x2="771.9823996225992" y2="317.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-xaxis-tick"></line><line id="SvgjsLine1103" x1="882.2655995686848" y1="311.73" x2="882.2655995686848" y2="317.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-xaxis-tick"></line><line id="SvgjsLine1105" x1="992.5487995147704" y1="311.73" x2="992.5487995147704" y2="317.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-xaxis-tick"></line><line id="SvgjsLine1107" x1="1102.831999460856" y1="311.73" x2="1102.831999460856" y2="317.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-xaxis-tick"></line><line id="SvgjsLine1109" x1="1213.1151994069417" y1="311.73" x2="1213.1151994069417" y2="317.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-xaxis-tick"></line><line id="SvgjsLine1111" x1="1323.3983993530273" y1="311.73" x2="1323.3983993530273" y2="317.73" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-xaxis-tick"></line><line id="SvgjsLine1118" x1="0" y1="310.73" x2="1323.3983993530273" y2="310.73" stroke="transparent" stroke-dasharray="0"></line><line id="SvgjsLine1117" x1="0" y1="1" x2="0" y2="310.73" stroke="transparent" stroke-dasharray="0"></line></g><g id="SvgjsG1016" class="apexcharts-area-series apexcharts-plot-series"><g id="SvgjsG1017" class="apexcharts-series" seriesName="Visits" data:longestSeries="true" rel="1" data:realIndex="0"><path id="SvgjsPath1020" d="M0 310.73L0 233.0475L110.28319994608562 217.51100000000002L220.56639989217123 240.81575L330.84959983825684 178.66975L441.13279978434247 209.74275L551.4159997304281 186.438L661.6991996765137 201.9745L771.9823996225992 124.292L882.2655995686849 139.8285L992.5487995147705 170.9015L1102.8319994608562 100.98724999999999L1213.1151994069417 93.219L1323.3983993530273 19.420624999999973C1323.3983993530273 19.420624999999973 1323.3983993530273 310.73 1323.3983993530273 310.73M1323.3983993530273 19.420624999999973C1323.3983993530273 19.420624999999973 1323.3983993530273 19.420624999999973 1323.3983993530273 19.420624999999973 " fill="rgba(164,248,205,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-area" index="0" clip-path="url(#gridRectMaskmsjbg3dt)" pathTo="M 0 310.73L 0 233.0475L 110.28319994608562 217.51100000000002L 220.56639989217123 240.81575L 330.84959983825684 178.66975L 441.13279978434247 209.74275L 551.4159997304281 186.438L 661.6991996765137 201.9745L 771.9823996225992 124.292L 882.2655995686849 139.8285L 992.5487995147705 170.9015L 1102.8319994608562 100.98724999999999L 1213.1151994069417 93.219L 1323.3983993530273 19.420624999999973L 1323.3983993530273 310.73M 1323.3983993530273 19.420624999999973z" pathFrom="M -1 310.73L -1 310.73L 110.28319994608562 310.73L 220.56639989217123 310.73L 330.84959983825684 310.73L 441.13279978434247 310.73L 551.4159997304281 310.73L 661.6991996765137 310.73L 771.9823996225992 310.73L 882.2655995686849 310.73L 992.5487995147705 310.73L 1102.8319994608562 310.73L 1213.1151994069417 310.73L 1323.3983993530273 310.73"></path><g id="SvgjsG1018" class="apexcharts-series-markers-wrap" data:realIndex="0"><g class="apexcharts-series-markers"><circle id="SvgjsCircle1124" r="0" cx="330.84959983825684" cy="178.66975" class="apexcharts-marker wxoy02dxg no-pointer-events" stroke="#ffffff" fill="#a4f8cd" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" default-marker-size="0"></circle></g></g></g><g id="SvgjsG1021" class="apexcharts-series" seriesName="Clicks" data:longestSeries="true" rel="2" data:realIndex="1"><path id="SvgjsPath1024" d="M0 310.73L0 264.1205L110.28319994608562 248.584L220.56639989217123 256.35225L330.84959983825684 225.27925L441.13279978434247 248.584L551.4159997304281 233.0475L661.6991996765137 240.81575L771.9823996225992 170.9015L882.2655995686849 186.438L992.5487995147705 201.9745L1102.8319994608562 155.365L1213.1151994069417 139.8285L1323.3983993530273 97.103125C1323.3983993530273 97.103125 1323.3983993530273 310.73 1323.3983993530273 310.73M1323.3983993530273 97.103125C1323.3983993530273 97.103125 1323.3983993530273 97.103125 1323.3983993530273 97.103125 " fill="rgba(96,242,202,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-area" index="1" clip-path="url(#gridRectMaskmsjbg3dt)" pathTo="M 0 310.73L 0 264.1205L 110.28319994608562 248.584L 220.56639989217123 256.35225L 330.84959983825684 225.27925L 441.13279978434247 248.584L 551.4159997304281 233.0475L 661.6991996765137 240.81575L 771.9823996225992 170.9015L 882.2655995686849 186.438L 992.5487995147705 201.9745L 1102.8319994608562 155.365L 1213.1151994069417 139.8285L 1323.3983993530273 97.103125L 1323.3983993530273 310.73M 1323.3983993530273 97.103125z" pathFrom="M -1 310.73L -1 310.73L 110.28319994608562 310.73L 220.56639989217123 310.73L 330.84959983825684 310.73L 441.13279978434247 310.73L 551.4159997304281 310.73L 661.6991996765137 310.73L 771.9823996225992 310.73L 882.2655995686849 310.73L 992.5487995147705 310.73L 1102.8319994608562 310.73L 1213.1151994069417 310.73L 1323.3983993530273 310.73"></path><g id="SvgjsG1022" class="apexcharts-series-markers-wrap" data:realIndex="1"><g class="apexcharts-series-markers"><circle id="SvgjsCircle1125" r="0" cx="661.6991996765137" cy="240.81575" class="apexcharts-marker w4emq7848i no-pointer-events" stroke="#ffffff" fill="#60f2ca" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" default-marker-size="0"></circle></g></g></g><g id="SvgjsG1025" class="apexcharts-series" seriesName="Sales" data:longestSeries="true" rel="3" data:realIndex="2"><path id="SvgjsPath1028" d="M0 310.73L0 295.19350000000003L110.28319994608562 279.65700000000004L220.56639989217123 287.42525L330.84959983825684 256.35225L441.13279978434247 279.65700000000004L551.4159997304281 264.1205L661.6991996765137 271.88875L771.9823996225992 201.9745L882.2655995686849 217.51100000000002L992.5487995147705 233.0475L1102.8319994608562 201.9745L1213.1151994069417 170.9015L1323.3983993530273 139.8285C1323.3983993530273 139.8285 1323.3983993530273 310.73 1323.3983993530273 310.73M1323.3983993530273 139.8285C1323.3983993530273 139.8285 1323.3983993530273 139.8285 1323.3983993530273 139.8285 " fill="rgba(43,218,199,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-area" index="2" clip-path="url(#gridRectMaskmsjbg3dt)" pathTo="M 0 310.73L 0 295.19350000000003L 110.28319994608562 279.65700000000004L 220.56639989217123 287.42525L 330.84959983825684 256.35225L 441.13279978434247 279.65700000000004L 551.4159997304281 264.1205L 661.6991996765137 271.88875L 771.9823996225992 201.9745L 882.2655995686849 217.51100000000002L 992.5487995147705 233.0475L 1102.8319994608562 201.9745L 1213.1151994069417 170.9015L 1323.3983993530273 139.8285L 1323.3983993530273 310.73M 1323.3983993530273 139.8285z" pathFrom="M -1 310.73L -1 310.73L 110.28319994608562 310.73L 220.56639989217123 310.73L 330.84959983825684 310.73L 441.13279978434247 310.73L 551.4159997304281 310.73L 661.6991996765137 310.73L 771.9823996225992 310.73L 882.2655995686849 310.73L 992.5487995147705 310.73L 1102.8319994608562 310.73L 1213.1151994069417 310.73L 1323.3983993530273 310.73"></path><g id="SvgjsG1026" class="apexcharts-series-markers-wrap" data:realIndex="2"><g class="apexcharts-series-markers"><circle id="SvgjsCircle1126" r="0" cx="661.6991996765137" cy="271.88875" class="apexcharts-marker wmjutftn no-pointer-events" stroke="#ffffff" fill="#2bdac7" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" default-marker-size="0"></circle></g></g></g><g id="SvgjsG1019" class="apexcharts-datalabels" data:realIndex="0"></g><g id="SvgjsG1023" class="apexcharts-datalabels" data:realIndex="1"></g><g id="SvgjsG1027" class="apexcharts-datalabels" data:realIndex="2"></g></g><line id="SvgjsLine1119" x1="0" y1="0" x2="1323.3983993530273" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1120" x1="0" y1="0" x2="1323.3983993530273" y2="0" stroke-dasharray="0" stroke-width="0" class="apexcharts-ycrosshairs-hidden"></line><g id="SvgjsG1121" class="apexcharts-yaxis-annotations"></g><g id="SvgjsG1122" class="apexcharts-xaxis-annotations"></g><g id="SvgjsG1123" class="apexcharts-point-annotations"></g><rect id="SvgjsRect1127" width="0" height="0" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fefefe" class="apexcharts-zoom-rect"></rect><rect id="SvgjsRect1128" width="0" height="0" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fefefe" class="apexcharts-selection-rect"></rect></g><rect id="SvgjsRect1012" width="0" height="0" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fefefe"></rect><g id="SvgjsG1071" class="apexcharts-yaxis" rel="0" transform="translate(19.265625, 0)"><g id="SvgjsG1072" class="apexcharts-yaxis-texts-g"><text id="SvgjsText1073" font-family="Helvetica, Arial, sans-serif" x="20" y="51.4" text-anchor="end" dominant-baseline="auto" font-size="11px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-yaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1074">400</tspan></text><text id="SvgjsText1075" font-family="Helvetica, Arial, sans-serif" x="20" y="129.0825" text-anchor="end" dominant-baseline="auto" font-size="11px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-yaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1076">300</tspan></text><text id="SvgjsText1077" font-family="Helvetica, Arial, sans-serif" x="20" y="206.76500000000001" text-anchor="end" dominant-baseline="auto" font-size="11px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-yaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1078">200</tspan></text><text id="SvgjsText1079" font-family="Helvetica, Arial, sans-serif" x="20" y="284.4475" text-anchor="end" dominant-baseline="auto" font-size="11px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-yaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1080">100</tspan></text><text id="SvgjsText1081" font-family="Helvetica, Arial, sans-serif" x="20" y="362.13" text-anchor="end" dominant-baseline="auto" font-size="11px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-yaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1082">0</tspan></text></g></g><g id="SvgjsG1009" class="apexcharts-annotations"></g></svg><div class="apexcharts-tooltip apexcharts-theme-light" style="left: 391.115px; top: 181.67px;"><div class="apexcharts-tooltip-title" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;">10/12</div><div class="apexcharts-tooltip-series-group apexcharts-active" style="order: 1; display: flex;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(164, 248, 205);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-label">Visits: </span><span class="apexcharts-tooltip-text-value">170</span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group" style="order: 2; display: none;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(164, 248, 205);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-label">Visits: </span><span class="apexcharts-tooltip-text-value">170</span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group" style="order: 3; display: none;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(164, 248, 205);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-label">Visits: </span><span class="apexcharts-tooltip-text-value">170</span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div><div class="apexcharts-xaxistooltip apexcharts-xaxistooltip-bottom apexcharts-theme-light" style="left: 351.686px; top: 362.73px;"><div class="apexcharts-xaxistooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px; min-width: 33.8594px;">10/12</div></div><div class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light"><div class="apexcharts-yaxistooltip-text"></div></div></div></div>
+                                <div class="resize-triggers"><div class="expand-trigger"><div style="width: 1441px; height: 422px;"></div></div><div class="contract-trigger"></div></div></div>
+                            </div>
+                        </div>
+
+	<!-- END: content-->
+
+	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+	<script src="<%=request.getContextPath()%>/resources/js/member.js"></script>
+
+	<!-- BEGIN: Vendor JS-->
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/vendors.min.js"></script>
+	<!-- BEGIN Vendor JS-->
+
+	<!-- BEGIN: Page Vendor JS-->
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/forms/cleave/cleave.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/forms/cleave/addons/cleave-phone.us.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/extensions/moment.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/responsive.bootstrap5.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/jszip.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/pdfmake.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/vfs_fonts.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/buttons.html5.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/buttons.print.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/extensions/polyfill.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
+	<!-- END: Page Vendor JS-->
+
+	<!-- BEGIN: Theme JS-->
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/core/app-menu.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/core/app.js"></script>
+	<!-- END: Theme JS-->
+
+	<!-- BEGIN: Page JS-->
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/scripts/cards/card-analytics.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/scripts/pages/page-profile.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/scripts/pages/modal-edit-user.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/scripts/pages/app-user-view-account.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/scripts/pages/app-user-view.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/scripts/pages/app-user-list.js"></script>
+	<!-- END: Page JS-->
+
+	<%@ include file="./myPage_js.jsp"%>
+
+	<script>
+		$(window).on('load', function() {
+			if (feather) {
+				feather.replace({
+					width : 14,
+					height : 14
+				});
+			}
+		})
+	</script>
+
+	<script>
+		$('a').click(function() {
+			parent.parentsUrl($(this).attr('href'));
+		});
+		consol.log("url" + url);
+
+		var ur = $("form[href]");
+
+		<script type="text/javascript">
+
+		function change_parent_url(url) {
+			document.location = url;
+			alert(url)
+		}
+
+		function changePage(url, mCode) {
+			var parent = window.parent.document;
+			parent.querySelector('.nav-link').src = url;
+			console.log(url);
+			window.top.location.href = url;
+		}
+
+		var nall = $('.nav-link').val();
+		console.log("nall", nall);
+
+		var id_nav = $('.nav-link').attr('id');
+		console.log("id_nav", id_nav);
+	</script>
+
+
+</body>
+
+
+
+
+

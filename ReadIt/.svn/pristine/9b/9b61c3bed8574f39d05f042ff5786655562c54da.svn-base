@@ -1,0 +1,52 @@
+package bookred.member.controller;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import bookred.book.service.BookService;
+import bookred.member.service.CartService;
+
+@Controller
+@RequestMapping("/main/myInfo")
+public class MemberReserveController {
+	
+	@Autowired
+	private CartService cartService;
+	
+	@Autowired
+	private BookService bookService;
+	
+	@RequestMapping("/fieldReserve")
+	public String fieldReserve(Model model, String mem_id, String isbn)throws Exception{
+		String url="/member/myInfo/cart/reserve/fieldReserve";
+		System.out.println(isbn);
+		System.out.println(mem_id);
+		return url;
+	}	
+	@RequestMapping("/lockerReserve")
+	public String lockerReserve(Model model, String mem_id, String isbn)throws Exception{
+		String url="/member/myInfo/cart/reserve/fieldReserve";
+		System.out.println(isbn);
+		System.out.println(mem_id);
+		return url;
+	}	
+	@RequestMapping("/driveReserve")
+	public String driveReserve(Model model, String mem_id, String isbn)throws Exception{
+		String url="/member/myInfo/cart/reserve/fieldReserve";
+		System.out.println(isbn);
+		System.out.println(mem_id);
+		return url;
+	}	
+	@RequestMapping("/deliveryReserve")
+	public String deliveryReserve(Model model, String mem_id, String isbn)throws Exception{
+		String url="/member/myInfo/cart/reserve/fieldReserve";
+		System.out.println(isbn);
+		System.out.println(mem_id);
+		return url;
+	}	
+	
+}

@@ -1,0 +1,202 @@
+package bookred.member.controller;
+
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.josephoconnell.html.HTMLInputFilter;
+
+import bookred.main.dto.EventVO;
+import bookred.member.command.RentCriteria;
+import bookred.member.dto.RentBackVO;
+import bookred.member.dto.RentBookVO;
+import bookred.member.dto.ReviewVO;
+import bookred.member.service.RentBackService;
+import bookred.member.service.ReviewService;
+
+@Controller
+@RequestMapping("/main/myBook")
+public class MemberBookController {
+	
+	@Autowired
+	private RentBackService rentBackService;
+	
+	@Autowired
+	private ReviewService reviewService;
+	
+	
+//	@RequestMapping("/myBookPage")
+//	public String myBook()throws Exception{
+//		String url="/member/myBook/myBookPage";
+//		return url;
+//	}
+//	
+	@RequestMapping(value="/rentList.do", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView bookRentList(RentCriteria cri, ModelAndView mnv, 
+			HttpServletRequest req)throws Exception{
+		String url="/member/myBook/booking/rentList";
+		
+		HttpSession session = req.getSession();
+//		String mem_id = session.getAttribute("loginUser").toString();
+		String mem_id = "aa";
+		
+		Map<String, Object> dataMap = rentBackService.getRentList(cri, mem_id);
+		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+		
+	}
+	
+	@RequestMapping("/returnList")
+	public String returnList()throws Exception{
+		String url="/member/myBook/return/returnList";
+		return url;
+	}
+	
+	@RequestMapping(value= "/reviewList", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView reviewList(RentCriteria cri, ModelAndView mnv, ReviewVO review, 
+			HttpServletRequest req)throws Exception{
+		String url="/member/myBook/review/reviewList";
+		HttpSession session = req.getSession();
+//		String mem_id = session.getAttribute("loginUser").toString();
+		System.out.println("rent_no" + review.getRent_no());
+		String mem_id = "aa";
+		review.setMem_id(mem_id);
+		review.setIs_return("Y");
+		
+		Map<String, Object> dataMap = reviewService.getReviewList(cri, review);
+		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	@RequestMapping(value = "/notReviewList",  method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView notReviewList(RentCriteria cri, ModelAndView mnv, ReviewVO review,
+			HttpServletRequest req)throws Exception{
+		String url="/member/myBook/review/notReviewList";
+		
+		HttpSession session = req.getSession();
+//		String mem_id = session.getAttribute("loginUser").toString();
+		System.out.println("rent_no" + review.getRent_no());
+
+		String mem_id = "aa";
+		review.setMem_id(mem_id);
+		review.setIs_return("Y");
+		
+		Map<String, Object> dataMap = reviewService.getReviewList(cri, review);
+		
+		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	@RequestMapping(value = "/reviewBookInfo", method = RequestMethod.POST,  produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public  Map<String, Object> reviewBookInfo( ReviewVO review,  ModelAndView mnv)throws Exception{
+		
+//		String mem_id = session.getAttribute("loginUser").toString();
+		String mem_id = "aa";
+		Map<String, Object> dataMap = reviewService.getRentnoTobookinfo(review);
+		
+		System.out.println(dataMap.get("rentBook").toString());
+		
+		return dataMap;
+	}
+	
+	@RequestMapping(value ="/reviewRegist", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+	public String reviewRegist(ReviewVO review, HttpServletRequest request) throws Exception {
+		String url = "redirect:/main/myBook/notReviewList.do";
+		
+		String data = "등록 완료";
+		System.out.println("데이터 넘어옴");
+		System.out.println(review.getRev_no());
+		System.out.println(review.getRev_content());
+		System.out.println(review.getRev_grade());
+		reviewService.regist(review);
+		// output
+		System.out.println("데이터 나옴");
+		
+		return url;
+	}
+	
+	@RequestMapping(value = "/reviewModify", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+	public String reviewModify(ReviewVO review, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+		String url = "redirect:/main/myBook/reviewList.do";
+
+		System.out.println("data 넘어옴");
+		System.out.println(review.getRev_content());
+		System.out.println(review.getRev_grade());
+		System.out.println(review.getRev_no());
+		reviewService.modify(review);
+		
+		System.out.println("데이터 넘어감");
+		rttr.addFlashAttribute("from", "modify");
+		
+		return url;
+	}
+	
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public String remove(int rev_no, RedirectAttributes rttr) throws Exception {
+		String url = "redirect:/main/myBook/reviewList.do";
+
+		System.out.println("remove data 넘어옴");
+		reviewService.remove(rev_no);
+
+		rttr.addFlashAttribute("from", "remove");
+		rttr.addAttribute("rev_no", rev_no);
+		System.out.println("remove data 삭제 완료");
+
+		return url;
+	}
+	
+	@RequestMapping("/waitingList")
+	public String waitingList()throws Exception{
+		String url="/member/myBook/waiting/waitingList";
+		return url;
+	}
+	@RequestMapping("/myWishBook")
+	public String myWishBook()throws Exception{
+		String url="/member/myBook/myWishBook";
+		return url;
+	}
+	
+	@RequestMapping("/returnExtension")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> rentExtension( RentBookVO rentBook, RentCriteria cri , ModelAndView mnv, HttpServletRequest req)throws Exception{
+		ResponseEntity<Map<String, Object>> entity = null;
+		HttpSession session = req.getSession();
+		
+//		String mem_id = session.getAttribute("loginUser").toString();
+		String mem_id = "aa";
+		
+		rentBackService.RentDateExtention(rentBook);
+		
+		Map<String, Object> dataMap = rentBackService.getRentList(cri, mem_id);
+		entity = new ResponseEntity<Map<String, Object>>(dataMap, HttpStatus.OK);
+		
+		return entity;
+	}
+	
+	
+	
+	
+	
+	
+}
+

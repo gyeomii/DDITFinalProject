@@ -1,0 +1,66 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Review-Mapper">
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and book_title like '%'||#{keyword}||'%'
+		</if>
+		<!-- <if test="searchType == 'e'.toString()"> -->
+		<!-- and mem_email like '%'||#{keyword}||'%' -->
+		<!-- </if> -->
+		<!-- <if test="searchType == 'n'.toString()"> -->
+		<!-- and mem_name like '%'||#{keyword}||'%' -->
+		<!-- </if> -->
+	</sql>
+
+	<select id="selecReviewList"   resultType="review">
+
+		select *
+		from(
+			select rownum as rnum, SearchBookResult.*
+			from (  select *
+				from(   select
+				        rent_no, rent_back.book_no, rent_back.mem_id, book_title, book_imgurl, is_return
+						from rent_back 
+						inner join book
+						on rent_back.book_no =
+						book.book_no
+						where rent_back.mem_id = #{mem_id}) rent_back inner join review
+				        on rent_back.rent_no = review.rent_no
+				        where rent_back.is_return = #{is_return}
+		<include refid="search" />
+		order by REV_REGDATE desc
+		) SearchBookResult
+		    <![CDATA[
+		    where rownum < #{endRow}
+		    ]]>
+		)
+		 <![CDATA[
+		where rnum >= #{startRow}		
+		 ]]>
+	</select>
+
+	<select id="selectReviewListCount"  resultType="int">
+		select
+		count(*)
+		from review inner join rent_back on rent_back.rent_no = review.rent_no
+		where rent_back.mem_id = #{mem_id}
+		<!-- <include refid="search" /> -->
+	</select>
+
+	<select id="selectReviewByRevNo" parameterType="int"	resultType="review">
+		select
+		*
+		from review
+		where REV_NO=#{REV_NO}
+	</select>
+
+	<select id="selectReviewSeqNext" resultType="int">
+		select
+		REV_NO.nextval as REV_NO from dual
+	</select>
+
+
+</mapper>

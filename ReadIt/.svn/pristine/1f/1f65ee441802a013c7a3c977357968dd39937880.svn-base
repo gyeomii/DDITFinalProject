@@ -1,0 +1,25 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Secure-Mapper">
+	<insert id="insertSecure" parameterType="secure">
+		insert into secure (sc_no, sc_in, sc_name, mem_id)
+		values (sc_no_seq.nextval, sysdate,  #{sc_name}, #{mem_id})
+	</insert>
+	
+	<select id="selectSecureList" resultType="secure">
+		select * from secure
+	</select>
+	
+	<select id="selectSecureNotOut" resultType="int">
+		select count(*) from secure
+		where mem_id = #{mem_id} and sc_out is null
+	</select>
+	
+	<update id="updateSecureOut"  parameterType="str">
+		update secure
+		set sc_out = sysdate
+		where mem_id = #{mem_id}
+	</update>
+</mapper>

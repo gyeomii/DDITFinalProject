@@ -1,0 +1,93 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Cart-Mapper">
+
+	<sql id="search">	
+		<if test="searchType == 'i'.toString()">
+			and mem_id like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'p'.toString()">
+			and mem_phone like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'e'.toString()">
+			and mem_email like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'n'.toString()">
+			and mem_name like '%'||#{keyword}||'%'			
+		</if>			
+	</sql>	
+
+
+	<select id="selectCart" resultType="cart">
+		select *
+		from cart
+		where mem_id=#{mem_id}
+	</select>
+
+	<update id="deleteCart" parameterType="cart">
+		delete from cart
+		where mem_id = #{mem_id}
+		and book_isbn = #{book_isbn}
+	</update>	
+	
+	<update id="insertCart" parameterType="cart">
+		insert into cart
+		values (CART_NO_SEQ.nextval,#{mem_id},#{book_isbn})
+	</update>
+	
+	<select id="checkCart" resultType="cart">
+		select * from cart where book_isbn = #{book_isbn} and mem_id= #{mem_id}
+	</select>
+	
+	<select id="selectCartListCount" resultType="int">
+		select
+		count(*) 
+		from cart
+		where mem_id=#{mem_id}
+		<include refid="search" />
+	</select>
+	
+	<select id="selectCartList" resultType="cartList">
+	
+		select *
+		from(
+		select rownum as rnum,SearchBookResult.*
+		from (
+		
+		select distinct a.book_isbn
+		from book A, cart B
+		where A.book_isbn = B.book_isbn
+		and b.mem_id = #{mem_id}
+		
+		<include refid="search" />
+		) SearchBookResult
+		    <![CDATA[
+		    where rownum < #{endRow}
+		    ]]>
+		)
+		 <![CDATA[
+		where rnum >= #{startRow}		
+		 ]]>
+		 
+	</select>
+	
+	<select id="selectBookByBookIsbn" resultType="book">
+		select * from book where book_no = #{book_isbn}
+	</select>
+		
+	<select id="seleteOneBookByBookIsbn" resultType="book">
+		SELECT *
+		FROM ( SELECT A.*,ROW_NUMBER() OVER(PARTITION BY book_isbn ORDER BY book_isbn) RN
+		FROM book A)
+		WHERE RN=1 AND book_isbn = #{book_isbn}
+	</select>	
+	
+	<select id="selectCartListByIsbnAndId" resultType="cart">
+	select *
+	from cart
+	where book_isbn = #{book_isbn} and mem_id=#{mem_id}
+	</select>
+	
+</mapper>

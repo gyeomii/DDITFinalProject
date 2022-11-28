@@ -1,0 +1,76 @@
+package bookred.main.dto;
+
+import java.util.Date;
+import java.util.List;
+
+import bookred.common.dto.AttachVO;
+
+public class LostVO {
+
+	private int lost_no =0;
+	private String mem_id;
+	private String lost_title;
+	private String lost_writer;
+	private String lost_content;
+	private Date lost_regdate = new Date();
+
+	private List<AttachVO> attachList;
+	
+	public int getLost_no() {
+		return lost_no;
+	}
+
+	public void setLost_no(int lost_no) {
+		this.lost_no = lost_no;
+	}
+
+	public String getMem_id() {
+		return mem_id;
+	}
+
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+
+	public String getLost_title() {
+		return lost_title;
+	}
+
+	public void setLost_title(String lost_title) {
+		this.lost_title = lost_title;
+	}
+
+	public String getLost_writer() {
+		return lost_writer;
+	}
+
+	public void setLost_writer(String lost_writer) {
+		this.lost_writer = lost_writer;
+	}
+
+	public String getLost_content() {
+		return lost_content;
+	}
+
+	public void setLost_content(String lost_content) {
+		this.lost_content = lost_content;
+	}
+
+	public Date getLost_regdate() {
+		return lost_regdate;
+	}
+
+	public void setLost_regdate(Date lost_regdate) {
+		this.lost_regdate = lost_regdate;
+	}
+
+
+	public List<AttachVO> getAttachList() {
+		return attachList;
+	}
+
+	public void setAttachList(List<AttachVO> attachList) {
+		this.attachList = attachList;
+	}
+
+}

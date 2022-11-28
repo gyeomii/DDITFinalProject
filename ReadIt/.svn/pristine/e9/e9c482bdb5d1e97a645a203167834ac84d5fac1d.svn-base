@@ -1,0 +1,27 @@
+package bookred.main.service;
+
+import java.util.List;
+
+import bookred.main.dao.MultiOneDAO;
+import bookred.main.dto.MultiOneVO;
+
+public class MultiOneServiceImpl implements MultiOneService {
+
+	private MultiOneDAO multiOneDAO;
+	
+	public void setMultiOneDAO(MultiOneDAO multiOneDAO) {
+		this.multiOneDAO = multiOneDAO;
+	}
+	@Override
+	public void regist(MultiOneVO multiOne) throws Exception {
+
+		multiOneDAO.insertMultiOne(multiOne);
+	}
+	
+	@Override
+	public List<String> getSeatByDateAndTime(MultiOneVO multiOne) throws Exception {
+		List<String> result = multiOneDAO.getSeatByDateAndTime(multiOne);
+		return result;
+	}
+
+}

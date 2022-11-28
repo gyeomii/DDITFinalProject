@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	
+	
+	<!-- summernote Image Path -->
+	<bean id="imgPath" class="java.lang.String">
+		<constructor-arg value="${summernote.img}" />      
+	</bean>
+	
+	<!-- member.picture -->
+	<bean id="picturePath" class="java.lang.String">
+		<constructor-arg value="${member.picture.upload}" />      
+	</bean>
+	
+	<!-- file upload -->
+	<bean id="fileUploadPath" class="java.lang.String">
+		<constructor-arg value="${pds.upload}"/>
+	</bean>
+	
+	
+	
+	<!-- Repository -->
+	<bean id="bookDAO" class="bookred.book.dao.BookDAOImpl"
+		p:sqlSession-ref="sqlSession" 
+	/>
+	<bean id="wishBookDAO" class="bookred.book.dao.WishBookDAOImpl"
+		p:sqlSession-ref="sqlSession" 
+	/>
+	<bean id="noticeDAO" class="bookred.main.dao.NoticeDAOImpl"
+		p:sqlSession-ref="sqlSession" 
+	/>
+	<bean id="oftenQnaDAO" class="bookred.main.dao.OftenQnaDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="eventDAO" class="bookred.main.dao.EventDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="lostDAO" class="bookred.main.dao.LostDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="volBoardDAO" class="bookred.main.dao.VolBoardDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	
+	<bean id="etcManageDAO" class="bookred.admin.dao.EtcManageDAOImpl"
+		p:sqlSession-ref="sqlSession"
+	/>
+	
+	<bean id="attachDAO" class="bookred.common.dao.AttachDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>	
+	<bean id="attachNDAO" class="bookred.common.dao.AttachNDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="attachEDAO" class="bookred.common.dao.AttachEDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="attachODAO" class="bookred.common.dao.AttachODAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="attachVDAO" class="bookred.common.dao.AttachVDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="attachLDAO" class="bookred.common.dao.AttachLDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="volApplyDAO" class="bookred.main.dao.VolApplyDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="todolistDAO" class="bookred.admin.dao.TodolistDAOImpl" 
+	p:sqlSession-ref="sqlSession"
+	/>
+	
+	
+	<bean id="menuDAO" class="bookred.common.dao.MenuDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="adminInfoDAO" class="bookred.admin.dao.AdminInfoDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="memberDAO" class="bookred.member.dao.MemberDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	
+	<bean id="cartDAO" class="bookred.member.dao.CartDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	
+	<bean id="rentDAO" class="bookred.member.dao.RentBackDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="reviewDAO" class="bookred.member.dao.ReviewDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	
+	<bean id="movieDAO" class="bookred.main.dao.MovieDAOImpl" 
+		p:sqlSession-ref="sqlSession"
+	/>
+	
+	<bean id="reserveDAO" class="bookred.member.dao.ReserveDAOImpl"
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="rentReturnDAO" class="bookred.admin.dao.RentReturnDAOImpl"
+		p:sqlSession-ref="sqlSession"
+	/>
+	
+
+	<bean id="multiOneDAO" class="bookred.main.dao.MultiOneDAOImpl"
+		p:sqlSession-ref="sqlSession"	
+	/>
+	
+	<bean id="newBookDAO" class="bookred.admin.dao.NewBookDAOImpl"
+		p:sqlSession-ref="sqlSession"	
+	/>
+	
+	<bean id="myWishBookDAO" class="bookred.member.dao.MyWishBookDAOImpl"
+		p:sqlSession-ref="sqlSession"
+	/>
+	
+	<bean id="drivethruDAO" class="bookred.admin.dao.DrivethruDAOImpl"
+		p:sqlSession-ref="sqlSession"
+	/>
+	
+	<bean id="facilityManagementDAO" class="bookred.admin.dao.FacilityManagementDAOImpl"
+		p:sqlSession-ref="sqlSession"
+	/>
+	
+	<bean id="socketDAO" class="bookred.socket.dao.SocketDAOImpl"
+		p:sqlSession-ref="sqlSession"	
+	/>
+	<bean id="stupidBookDAO" class="bookred.admin.dao.StupidBookDAOImpl"
+		p:sqlSession-ref="sqlSession"	
+	/>
+	<bean id="secureDAO" class="bookred.admin.dao.SecureDAOImpl"
+		p:sqlSession-ref="sqlSession"	
+	/>
+
+	<bean id="libPlanDAO" class="bookred.admin.dao.LibPlanDAOImpl"
+		p:sqlSession-ref="sqlSession"
+	/>
+	<bean id="pointDAO" class="bookred.member.dao.PointDAOImpl"
+		p:sqlSession-ref="sqlSession"
+	/>
+
+
+	<!-- Service -->
+	<bean id="bookService"
+		class="bookred.book.service.BookServiceImpl" 
+		p:bookDAO-ref="bookDAO" />
+		
+	<bean id="wishBookService"
+		class="bookred.book.service.WishBookServiceImpl" 
+		p:wishBookDAO-ref="wishBookDAO" />
+		
+	<bean id="noticeService"
+		class="bookred.main.service.NoticeServiceImpl"
+		p:noticeDAO-ref="noticeDAO" 
+		p:attachDAO-ref="attachDAO"
+		p:attachNDAO-ref="attachNDAO"/>
+	<bean id="eventService"
+		class="bookred.main.service.EventServiceImpl"
+		p:eventDAO-ref="eventDAO" 
+		p:attachDAO-ref="attachDAO"
+		p:attachEDAO-ref="attachEDAO"/>
+		
+	<bean id="oftenQnaService"
+		class="bookred.main.service.OftenQnaServiceImpl"
+		p:oftenQnaDAO-ref="oftenQnaDAO" 
+		p:attachDAO-ref="attachDAO" 
+		p:attachODAO-ref="attachODAO" />
+		
+	<bean id="lostService"
+		class="bookred.main.service.LostServiceImpl"
+		p:lostDAO-ref="lostDAO" 
+		p:attachDAO-ref="attachDAO"
+		p:attachLDAO-ref="attachLDAO"
+		/>
+	
+	<bean id="volBoardService"
+		class="bookred.main.service.VolBoardServiceImpl"
+		p:volBoardDAO-ref="volBoardDAO" 
+		p:attachDAO-ref="attachDAO"
+		p:attachVDAO-ref="attachVDAO"/>
+		
+	<bean id="volApplyService"
+		class="bookred.main.service.VolApplyServiceImpl"
+		p:volApplyDAO-ref="volApplyDAO" />
+		
+	<bean id="movieService"
+		class="bookred.main.service.MovieServiceImpl"
+		p:movieDAO-ref="movieDAO" />
+				
+			
+	<bean id="menuService" class="bookred.common.service.MenuServiceImpl" 
+		p:menuDAO-ref="menuDAO"
+	/>
+	<bean id="adminInfoService" class="bookred.admin.service.AdminInfoServiceImpl" 
+		p:adminDAO-ref="adminInfoDAO"
+	/>
+	<bean id="memberService" class="bookred.member.service.MemberServiceImpl" 
+		p:memberDAO-ref="memberDAO"
+		p:reserveDAO-ref="reserveDAO"
+	/>
+	<bean id="cartService" class="bookred.member.service.CartServiceImpl" 
+		p:cartDAO-ref="cartDAO"
+		p:bookDAO-ref="bookDAO"
+		p:reserveDAO-ref="reserveDAO"
+		p:reviewDAO-ref="reviewDAO"
+	/>
+		
+	<bean id="rentBackService" class="bookred.member.service.RentBackServiceImpl" 
+		p:rentDAO-ref="rentDAO"
+	/>
+	<bean id="reviewService" class="bookred.member.service.ReviewServiceImpl" 
+		p:reviewDAO-ref="reviewDAO"
+		p:bookDAO-ref="bookDAO"
+	/>
+	
+	<bean id="etcManageService" class="bookred.admin.service.EtcManageServiceImpl"
+		p:etcManageDAO-ref="etcManageDAO"
+	/>
+	<bean id="reserveService" class="bookred.member.service.ReserveServiceImpl"
+		p:reserveDAO-ref="reserveDAO"
+		p:cartDAO-ref="cartDAO"
+	/>	
+	<bean id="rentReturnService" class="bookred.admin.service.RentReturnServiceImpl"
+		p:rentReturnDAO-ref="rentReturnDAO"
+		p:bookDAO-ref="bookDAO" 
+		p:pointDAO-ref="pointDAO"
+	/>	
+	
+	<bean id="MultiOneService" class="bookred.main.service.MultiOneServiceImpl"
+		p:multiOneDAO-ref="multiOneDAO"	
+	/>
+	
+	<bean id="newBookSerive" class="bookred.admin.service.NewBookServiceImpl"
+		p:newBookDAO-ref="newBookDAO"	
+		p:wishBookDAO-ref="wishBookDAO"
+	/>
+	
+	<bean id="myWishBookService" class="bookred.member.service.MyWishBookServiceImpl"
+		p:myWishBookDAO-ref="myWishBookDAO"
+	/>                                                                                                                                                                                               
+	                                                                                                                                                                                               
+	<bean id="drivethruService" class="bookred.admin.service.DrivethruServiceImpl"
+		p:drivethruDAO-ref="drivethruDAO"	
+		p:memberDAO-ref="memberDAO"	
+		p:bookDAO-ref="bookDAO" 
+		p:rentReturnDAO-ref="rentReturnDAO"
+	/>
+	
+	<bean id="todolistService" class="bookred.admin.service.TodolistServiceImpl"
+		p:todolistDAO-ref="todolistDAO"
+	/>
+	
+	<bean id="facilityManagementService" class="bookred.admin.service.FacilityManagementServiceImpl"
+		p:facilityManagementDAO-ref="facilityManagementDAO"
+	/>
+	
+	<bean id="socketService" class="bookred.socket.service.SocketServiceImpl"
+		p:socketDAO-ref="socketDAO"
+	/>
+	<bean id="stupidBookService" class="bookred.admin.service.StupidBookServiceImpl"
+		p:stupidBookDAO-ref="stupidBookDAO"
+		p:bookDAO-ref="bookDAO"
+	/>
+	<bean id="secureService" class="bookred.admin.service.SecureServiceImpl"
+		p:secureDAO-ref="secureDAO"
+	/>
+	
+	<bean id="libPlanService" class="bookred.admin.service.LibPlanServiceImpl"
+		p:libPlanDAO-ref="libPlanDAO"
+	/>
+	<bean id="pointService" class="bookred.member.service.PointServiceImpl"
+		p:pointDAO-ref="pointDAO"
+	/>
+	
+</beans>

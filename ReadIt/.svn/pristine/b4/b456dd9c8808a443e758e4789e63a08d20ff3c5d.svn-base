@@ -1,0 +1,124 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="NewBook-Mapper">
+	
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and book_title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'a'.toString()">
+			and book_author like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'i'.toString()">
+			and book_isbn like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'k'.toString()">
+			and TRUNC(kdc_no / 100,0) like #{keyword}
+		</if>
+	</sql>
+	
+	<!-- NewBookWork테이블에 넣는 용도 -->
+	<insert id="insertInNewBookWork" parameterType="newBook">
+<!-- 		<if test="nbw_name == '비치'.toString()"> -->
+<!-- 		insert into  -->
+<!-- 			newbook_work(nbw_no, wb_no, nbw_code, nbw_name) -->
+<!-- 		values -->
+<!-- 			(nbw_no_seq.nextval, #{wb_no}, #{nbw_code}, #{nbw_name}) -->
+<!-- 		</if> -->
+		
+<!-- 		<if test="nbw_name == '구매'.toString()"> -->
+<!-- 		insert into  -->
+<!-- 			newbook_work(nbw_no, nbw_code, nbw_name) -->
+<!-- 		values -->
+<!-- 			(nbw_no_seq.nextval, #{nbw_code}, #{nbw_name}) -->
+<!-- 		</if> -->
+		
+<!-- 		<if test="nbw_name == '납본'.toString()"> -->
+<!-- 		insert into  -->
+<!-- 			newbook_work(nbw_no, nbw_code, nbw_name) -->
+<!-- 		values -->
+<!-- 			(nbw_no_seq.nextval, #{nbw_code}, #{nbw_name}) -->
+<!-- 		</if> -->
+		
+<!-- 		<if test="nbw_name == '기증'.toString()"> -->
+<!-- 		insert into  -->
+<!-- 			newbook_work(nbw_no, nbw_code, nbw_name) -->
+<!-- 		values -->
+<!-- 			(nbw_no_seq.nextval, #{nbw_code}, #{nbw_name}) -->
+<!-- 		</if> -->
+	
+	
+		insert into 
+			newbook_work(nbw_no, wb_no, nbw_code, nbw_name, donator_id, donator_name)
+		values
+			(nbw_no_seq.nextval, #{wb_no}, #{nbw_code}, #{nbw_name}, #{donator_id}, #{donator_name})
+	</insert>
+	
+	<!-- newBook테이블에 넣는 용도 -->
+	<insert id="insertNewBook" parameterType="newBook">
+		insert into 
+    		new_book(nb_no, nb_date, nb_title, nb_author, nb_publish, isbn, nbw_no)
+		VALUES
+    		(NB_NO_SEQ.nextval, #{nb_date}, #{nb_title}, #{nb_author}, #{nb_publish}, #{isbn}, 
+        		(select nbw_no 
+            		from (select nbw_no
+                    		from newbook_work
+                    		order by nbw_no DESC)
+        		where rownum = 1)
+    		)
+	</insert>
+	
+	<!-- book테이블에 넣는 용도 -->
+	<insert id="insertBook" parameterType="newBook">
+	insert into 
+		book(book_no, book_isbn, book_title, book_author, book_publisher, book_publishdate, book_imgurl, kdc_no, state_code, book_regDate, nb_no) 
+	values
+    	(BOOK_NO_SEQ.nextval, #{book_isbn},#{book_title}, #{book_author}, #{book_publisher}, #{book_publishdate}, 
+    		(select book_imgurl
+               from wishbook
+               where wb_no = #{wb_no}), 
+               1, #{state_code}, sysdate, (select nb_no 
+	            							from (select nb_no
+	                    							from new_book
+	                    							order by nb_no DESC)
+	        								where rownum = 1)
+        )
+	</insert>
+	
+	<!-- 등록완료 시에, wishbook의 state를 등록완료인 5로 변경해주는 쿼리 -->
+	<update id="wbStateUpdate" parameterType="newBook">
+		update wishbook
+		set wish_state = 5 
+		where wb_no = #{wb_no}
+	</update>
+	
+	
+	<!-- 새로운 도서가 입고 될 때, book_stock 테이블에 데이터 저장하는 쿼리 -->
+	
+	<!-- 먼저 ISBN이 있는지 체크 -->
+	<select id="checkISBNCount" resultType="int">
+		select count(*)
+		from book_stock
+		where book_isbn = #{book_isbn}
+	</select>
+	
+	<!-- ISBN이 없으면 입고된 도서 insert -->
+	<insert id="insertToBookStockNewBook" parameterType="bookStock">
+		insert into 
+			book_stock(book_isbn, book_count, book_rentable)
+		VALUES
+			(#{book_isbn}, 1, 1)
+	</insert>
+	
+	<!-- ISBN이 있으면 입고된 도서 update -->
+	<update id="insertToBookStockOldBook" parameterType="bookStock">
+		update book_stock
+		set book_rentable = book_rentable+1,
+		    book_count = book_count+1
+		where book_isbn = #{book_isbn}
+	</update>
+	
+	
+</mapper>

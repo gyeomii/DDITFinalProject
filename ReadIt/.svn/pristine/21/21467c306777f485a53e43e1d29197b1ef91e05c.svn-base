@@ -1,0 +1,12 @@
+package bookred.admin.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import bookred.admin.dto.LibPlanVO;
+
+public interface LibPlanDAO {
+	
+	List<LibPlanVO> selectAllPlan() throws SQLException;
+
+}

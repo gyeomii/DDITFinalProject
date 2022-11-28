@@ -1,0 +1,71 @@
+package bookred.main.dto;
+
+import java.util.Date;
+
+public class LostVO {
+
+	int lost_no;
+	String mem_id;
+	String lost_title;
+	String lost_writer;
+	String lost_content;
+	Date lost_regdate = new Date();
+	Date lost_updatedate;
+
+	public int getLost_no() {
+		return lost_no;
+	}
+
+	public void setLost_no(int lost_no) {
+		this.lost_no = lost_no;
+	}
+
+	public String getMem_id() {
+		return mem_id;
+	}
+
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+
+	public String getLost_title() {
+		return lost_title;
+	}
+
+	public void setLost_title(String lost_title) {
+		this.lost_title = lost_title;
+	}
+
+	public String getLost_writer() {
+		return lost_writer;
+	}
+
+	public void setLost_writer(String lost_writer) {
+		this.lost_writer = lost_writer;
+	}
+
+	public String getLost_content() {
+		return lost_content;
+	}
+
+	public void setLost_content(String lost_content) {
+		this.lost_content = lost_content;
+	}
+
+	public Date getLost_regdate() {
+		return lost_regdate;
+	}
+
+	public void setLost_regdate(Date lost_regdate) {
+		this.lost_regdate = lost_regdate;
+	}
+
+	public Date getLost_updatedate() {
+		return lost_updatedate;
+	}
+
+	public void setLost_updatedate(Date lost_updatedate) {
+		this.lost_updatedate = lost_updatedate;
+	}
+
+}

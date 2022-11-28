@@ -1,0 +1,88 @@
+package bookred.member.service;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import bookred.book.dto.BookVO;
+import bookred.common.dto.LockerMasterVO;
+import bookred.member.dao.CartDAO;
+import bookred.member.dao.ReserveDAO;
+import bookred.member.dto.CartVO;
+import bookred.member.dto.LockerVO;
+import bookred.member.dto.RMVO;
+
+public class ReserveServiceImpl implements ReserveService {
+	
+	private ReserveDAO reserveDAO;
+	private CartDAO cartDAO;
+	public void setReserveDAO(ReserveDAO reserveDAO) {
+		this.reserveDAO = reserveDAO;
+	}
+	public void setCartDAO(CartDAO cartDAO) {
+		this.cartDAO = cartDAO;
+	}
+	
+	@Override
+	public List<BookVO> getCartBookList(String[] isbnArray) throws SQLException {
+		List<BookVO> bookList = new ArrayList<BookVO>();
+		List<String> isbnList = new ArrayList<String>();
+		for(int i=0; i<isbnArray.length; i++) {
+			String isbn = isbnArray[i];
+			int count = reserveDAO.selectRentableByISBN(isbn);
+			if(count > 0 ) {
+				isbnList.add(isbn);
+			}
+		}
+		for (String isbn : isbnList) {
+			BookVO book = reserveDAO.selectBookByISBN(isbn);
+			bookList.add(book);
+		}
+		return bookList;
+	}
+
+	@Override
+	public List<LockerMasterVO> getLockerList() throws SQLException {
+		List<LockerMasterVO> lockerList = reserveDAO.selectLockerList();
+		return lockerList;
+	}
+	@Override
+	public void registRM(String mem_id, int rent_code, int rm_no) throws SQLException {
+		RMVO rmVO = new RMVO();
+		
+		rmVO.setRm_no(rm_no);
+		rmVO.setMem_id(mem_id);
+		rmVO.setRent_code(rent_code);
+		rmVO.setWant_date(new Date());
+		
+		reserveDAO.insertRM(rmVO);
+	}
+	
+	@Override
+	public void registBookReserve(String[] isbnList, String mem_id, int rm_no) throws SQLException {
+		
+		for (String book_isbn : isbnList) {
+			Map<String, Object> dataParam = new HashMap<String, Object>();
+			CartVO cart = cartDAO.selectCartListByIsbnAndId(book_isbn, mem_id);
+			int cart_no = cart.getCart_no();
+			dataParam.put("mem_id",mem_id);
+			dataParam.put("isbn",book_isbn);
+			dataParam.put("cart_no", cart_no);
+			dataParam.put("rm_no", rm_no);
+			reserveDAO.insertBookReserve(dataParam);
+		}
+	}
+	@Override
+	public int getRMSeqNextVal() throws SQLException {
+		int rm_no = reserveDAO.selectRMSeqNextVal();
+		return rm_no;
+	}
+	@Override
+	public void registLocker(LockerVO locker) throws SQLException {
+		reserveDAO.insertLocker(locker);
+		reserveDAO.updateLockerMaster(0, locker.getLocker_num());
+	}
+}

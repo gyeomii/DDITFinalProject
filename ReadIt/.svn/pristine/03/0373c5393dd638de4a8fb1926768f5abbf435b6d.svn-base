@@ -1,0 +1,130 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="VolBoard-Mapper">
+
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and VB_TITLE like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'w'.toString()">
+			and VB_WRITER like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'c'.toString()">
+			and VB_CONTENT like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'tc'.toString()">
+			and (
+			VB_TITLE like '%'||#{keyword}||'%'
+			or
+			VB_CONTENT like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		<if test="searchType == 'cw'.toString()">
+			and (
+			VB_WRITER like '%'||#{keyword}||'%'
+			or
+			VB_CONTENT like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		<if test="searchType == 'tcw'.toString()">
+			and (
+			VB_TITLE like '%'||#{keyword}||'%'
+			or
+			VB_WRITER like '%'||#{keyword}||'%'
+			or
+			VB_CONTENT like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>
+	
+	<select id="selectVolBoardList" resultType="volBoard">		
+		select *
+		from(
+		    select rownum as rnum,SearchVolBoardResult.*
+		    from ( 
+		    	select * 
+				from vol_board
+				where vb_no is not null
+				<include refid="search" />				
+				order by vb_no desc
+		    )  SearchVolBoardResult
+		    <![CDATA[
+		    where rownum < #{endRow}
+		    ]]>
+		)
+		 <![CDATA[
+		where rnum >= #{startRow}		
+		 ]]>
+	</select>
+
+	<select id="selectVolBoardListCount" resultType="int">
+	select count(*) 
+	from vol_board
+	where vb_no is not null
+	<include refid="search" />
+	order by vb_no desc 
+	</select>
+
+	<select id="selectVolBoardByVbNo" parameterType="int"
+		resultType="volBoard">
+		select
+		*
+		from vol_board
+		where vb_no=#{vb_no}
+	</select>
+
+
+	<select id="selectVolBoardSeqNext" resultType="int">
+		select vb_no_seq.nextval as vb_no from dual
+	</select>
+	
+	<update id="insertVolBoard" parameterType="volBoard">
+		insert into
+		vol_board(vb_no,vb_title,vb_writer,vb_content,mem_id)
+		values(#{vb_no},#{vb_title},#{vb_writer},#{vb_content},#{mem_id})
+	</update>
+
+
+	<update id="updateVolBoard" parameterType="volBoard">
+		update vol_board
+		set
+		vb_title=#{vb_title},vb_content=#{vb_content}
+		where
+		vb_no=#{vb_no}
+	</update>
+
+	<update id="deleteVolBoard" parameterType="int">
+		delete
+		from vol_board
+		where
+		vb_no=#{vb_no}
+	</update>
+
+	
+	
+	
+	<select id ="selectVolApply" resultType="volApply">
+		select * from vol_apply
+	
+	</select>
+	
+	<insert id="insertVolApply" parameterType="volApply">
+		insert into
+		vol_apply(va_no,mem_id,vb_no)
+		values(va_no_seq.nextVal,#{mem_id},#{vb_no})
+	</insert>
+
+
+	<select id ="getVolBoardDuplicateChack" resultType="int" parameterType="hashMap">
+		select count(*)
+		from vol_apply
+		where mem_id = #{mem_id}
+		and vb_no = #{vb_no}
+	</select>
+	
+
+</mapper>

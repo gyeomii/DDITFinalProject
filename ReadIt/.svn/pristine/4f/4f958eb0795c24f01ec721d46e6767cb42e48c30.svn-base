@@ -1,0 +1,115 @@
+package bookred.book.dao;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+import bookred.book.command.BookCriteria;
+import bookred.book.dto.BookVO;
+
+public class BookDAOImpl implements BookDAO {
+
+	
+	private SqlSession sqlSession;
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+	
+//	private BookDAO bookDAO;
+//	public void setBookDAO(BookDAO bookDAO) {
+//		this.bookDAO = bookDAO;
+//	}
+	
+	
+	@Override
+	public void insertBook(BookVO book) throws SQLException {
+		//bookDAO.insertBook(book);
+		sqlSession.insert("Book-Mapper.insertBook",book);
+
+	}
+
+	@Override
+	public int selectBookSeqNext() throws SQLException {
+		//return bookDAO.selectBookSeqNext();
+		return sqlSession.selectOne("Book-Mapper.selectBookSeqNext");
+	}
+
+	@Override
+	public List<BookVO> selectBookList() throws SQLException {
+		List<BookVO> bookList = new ArrayList<BookVO>();
+		bookList = sqlSession.selectList("Book-Mapper.selectBookList");
+		return bookList;
+	}
+
+	@Override
+	public List<BookVO> selectAllBookList(BookCriteria cri) throws SQLException {
+		Map<String, Object> dataParam = new HashMap<String, Object>();
+
+		int startRow = cri.getStartRowNum()+1;
+		int endRow = startRow + cri.getPerPageNum(); // 질문
+		
+		dataParam.put("startRow", startRow);
+		dataParam.put("endRow", endRow);
+		dataParam.put("searchType", cri.getSearchType());
+		dataParam.put("keyword", cri.getKeyword());
+		List<BookVO> bookList = new ArrayList<BookVO>();
+		bookList = sqlSession.selectList("Book-Mapper.selectALLBookList",dataParam);
+		
+		
+		return bookList;
+	}	
+	
+	
+	@Override
+	public BookVO selectBookByBookNo(int book_no) throws SQLException {
+		BookVO book = sqlSession.selectOne("Book-Mapper.selectBookByBookNo", book_no);
+		return book;
+	}
+	
+	
+	@Override
+	public List<BookVO> selectAllBookByBookIsbn(String book_isbn) throws SQLException {
+		List<BookVO> book = sqlSession.selectList("Book-Mapper.selectAllBookByBookIsbn", book_isbn);
+		return book;
+	}
+	@Override
+	public List<BookVO> selectBookByBookIsbn(String book_isbn) throws SQLException {
+		List<BookVO> book = sqlSession.selectList("Book-Mapper.selectAllBookByBookIsbn", book_isbn);
+		return book;
+	}
+	
+
+	@Override
+	public List<BookVO> searchBookByBookTitle(BookCriteria cri) throws SQLException {
+		Map<String, Object> dataParam = new HashMap<String, Object>();
+
+		int startRow = cri.getStartRowNum()+1;
+		int endRow = startRow + cri.getPerPageNum(); // 질문
+		
+		dataParam.put("startRow", startRow);
+		dataParam.put("endRow", endRow);
+		dataParam.put("searchType", cri.getSearchType());
+		dataParam.put("keyword", cri.getKeyword());
+		List<BookVO> bookList = new ArrayList<BookVO>();
+		bookList = sqlSession.selectList("Book-Mapper.searchBookByBookTitle",dataParam);
+		
+		return bookList;
+	}
+
+	@Override
+	public int selectBookListCount(BookCriteria cri) throws SQLException {
+		int count = sqlSession.selectOne("Book-Mapper.selectBookListCount", cri);
+		return count;
+	}
+	
+	@Override
+	public int selectAllBookListCount(BookCriteria cri) throws SQLException {
+		int count = sqlSession.selectOne("Book-Mapper.selectAllBookListCount", cri);
+		return count;
+	}	
+
+}

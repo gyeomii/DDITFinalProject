@@ -1,0 +1,33 @@
+package bookred.admin.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+
+import bookred.admin.command.Criteria;
+import bookred.admin.dto.AdminInfoVO;
+import bookred.admin.dto.SelectAdminVO;
+
+public class AdminInfoDAOImpl implements AdminInfoDAO {
+	
+	private SqlSession session;
+
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public SelectAdminVO selectAdminById(String id) throws SQLException {
+		SelectAdminVO admin = session.selectOne("UserManage-Mapper.selectAdminById", id);
+		return admin;
+	}
+
+	@Override
+	public void updateFinger(SelectAdminVO filname) throws SQLException {
+		session.update("UserManage-Mapper.updateFinger", filname);
+	}
+
+
+}

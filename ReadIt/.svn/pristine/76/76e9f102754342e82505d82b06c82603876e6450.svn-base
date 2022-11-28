@@ -1,0 +1,11 @@
+package bookred.admin.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import bookred.admin.dto.StupidBookVO;
+
+public interface StupidBookDAO {
+	public void insertStupidBook(StupidBookVO stupid) throws SQLException;
+	public List<StupidBookVO> selectStupidBookList() throws SQLException;
+}

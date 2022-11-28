@@ -1,0 +1,7 @@
+package bookred.admin.service;
+
+import java.sql.SQLException;
+
+public interface SecureService {
+	public void enterSecure(String mem_id) throws SQLException;
+}

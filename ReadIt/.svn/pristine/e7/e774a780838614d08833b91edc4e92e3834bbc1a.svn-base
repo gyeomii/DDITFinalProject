@@ -1,0 +1,59 @@
+package bookred.admin.service;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import bookred.admin.dao.EtcManageDAO;
+import bookred.admin.dto.EtcManageVO;
+import bookred.book.command.BookCriteria;
+import bookred.book.command.BookPageMaker;
+
+public class EtcManageServiceImpl implements EtcManageService {
+	
+	private EtcManageDAO etcManageDAO;
+	
+	public void setEtcManageDAO(EtcManageDAO etcManageDAO) {
+		this.etcManageDAO = etcManageDAO;
+	}
+
+	@Override
+	public Map<String, Object> getAllNoRentList(BookCriteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<EtcManageVO> noRentList = etcManageDAO.selectAllNoRentList(cri);
+		
+		BookPageMaker pageMaker = new BookPageMaker();
+		pageMaker.setCri(cri);
+		
+		dataMap.put("noRentList", noRentList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		
+		return dataMap;
+	}
+
+	@Override
+	public Map<String, Object> getLossBookList(BookCriteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<EtcManageVO> lossBookList = etcManageDAO.selectLossBookList(cri);
+		
+		BookPageMaker pageMaker = new BookPageMaker();
+		pageMaker.setCri(cri);
+		
+		dataMap.put("lossBookList", lossBookList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
+	}
+
+	@Override
+	public void regist(EtcManageVO registNoRentBook) throws SQLException {
+		String state_code = etcManageDAO.selectBookByBookIsbn();
+		
+		System.out.println("서비스임플 stateCode" + state_code);
+		registNoRentBook.setBook_isbn(state_code);
+		
+	}
+
+}

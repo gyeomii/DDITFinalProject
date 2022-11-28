@@ -1,0 +1,23 @@
+package bookred.admin.service;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import bookred.admin.dao.LibPlanDAO;
+import bookred.admin.dto.LibPlanVO;
+
+public class LibPlanServiceImpl implements LibPlanService {
+	
+	private LibPlanDAO libPlanDAO;
+	
+	public void setLibPlanDAO(LibPlanDAO libPlanDAO) {
+		this.libPlanDAO = libPlanDAO;
+	}
+	
+	@Override
+	public List<LibPlanVO> getAllPlanList() throws SQLException {
+		List<LibPlanVO> getAllPlanList = libPlanDAO.selectAllPlan();
+		return getAllPlanList;
+	}
+
+}

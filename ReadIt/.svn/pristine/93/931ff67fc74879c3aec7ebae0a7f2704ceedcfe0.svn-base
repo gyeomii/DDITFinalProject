@@ -1,0 +1,30 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AttachL-Mapper">
+
+	<select id="selectAttachByL" resultType="attach">
+		select * 
+		from attach 
+		where lost_no = #{lost_no}
+	</select>	
+	
+	<update id="insertAttachL">
+		insert into 
+		attach (ano, uploadpath, filename, filetype, lost_no, attacher,regdate)
+		values (ano_seq.nextval, #{uploadPath}, #{fileName},#{fileType}, #{lost_no},#{attacher},#{regdate} )
+	</update>
+	
+	<update id="deleteAllAttachL">
+		delete 
+		from attach 
+		where lost_no = #{lost_no}
+	</update>
+</mapper>  
+
+
+
+
+
+

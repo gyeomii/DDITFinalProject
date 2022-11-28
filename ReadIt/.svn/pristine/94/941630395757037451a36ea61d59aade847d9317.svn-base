@@ -1,0 +1,63 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Todolist-Mapper">
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and book_title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'w'.toString()">
+			and book_author like '%'||#{keyword}||'%'
+		</if>
+		<!-- <if test="searchType == 'e'.toString()"> -->
+		<!-- and mem_email like '%'||#{keyword}||'%' -->
+		<!-- </if> -->
+		<!-- <if test="searchType == 'n'.toString()"> -->
+		<!-- and mem_name like '%'||#{keyword}||'%' -->
+		<!-- </if> -->
+	</sql>
+
+
+	<select id="selectTodoList" resultType="todo" parameterType="str">
+		select *
+		from TODOLIST
+		where mem_id = #{mem_id} and todo_state = 0 or todo_state = 1
+		order by todo_regdate desc
+	</select>
+	
+	<select id="selectStateList" resultType="todo" parameterType="todo">
+		select *
+		from TODOLIST
+		where mem_id = #{mem_id} and todo_state = #{todo_state}
+		order by todo_regdate desc
+	</select>
+	
+	<select id="selectTodoByNo" resultType="todo">
+		select *
+		from TODOLIST
+		where todo_no = #{todo_no}
+		order by todo_regdate desc
+	</select>
+	
+	<select id="selectTodoListSeqNextVal" resultType="int">
+		select todo_no_seq.nextVal from dual	
+	</select>
+	
+	<insert id="insertTodoList" parameterType="todo">
+		insert into TODOLIST(todo_no, todo_name, mem_id, todo_start, todo_end, todo_regdate, todo_state) 
+		values(#{todo_no}, #{todo_name} , #{mem_id} ,#{todo_start} ,#{todo_end}, sysdate, #{todo_state})
+	</insert>
+	
+	<update id="updateTodoState" parameterType="todo">
+		update TODOLIST
+		set todo_state = #{todo_state}, todo_iscomplete = #{todo_iscomplete}
+		where todo_no = #{todo_no}
+	</update>
+	
+
+	
+	
+
+
+</mapper>

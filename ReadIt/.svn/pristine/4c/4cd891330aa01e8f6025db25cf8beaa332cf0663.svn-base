@@ -1,0 +1,477 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+    <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Security - Vuexy - Bootstrap HTML admin template</title>
+<link rel="apple-touch-icon"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/images/ico/apple-icon-120.png">
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/images/ico/favicon.ico">
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
+	rel="stylesheet">
+
+<!-- BEGIN: Vendor CSS-->
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/vendors.min.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/forms/wizard/bs-stepper.min.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/extensions/toastr.min.css">
+<!-- END: Vendor CSS-->
+
+<!-- BEGIN: Theme CSS-->
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/bootstrap-extended.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/colors.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/components.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/themes/dark-layout.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/themes/bordered-layout.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/themes/semi-dark-layout.css">
+
+<!-- BEGIN: Page CSS-->
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/core/menu/menu-types/horizontal-menu.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/pages/app-ecommerce.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/plugins/forms/pickers/form-pickadate.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/plugins/forms/form-wizard.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/plugins/extensions/ext-component-toastr.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/plugins/forms/form-number-input.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/pages/page-knowledge-base.css">
+<!-- END: Page CSS-->
+<!-- BEGIN: Vendor CSS-->
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/pickers/pickadate/pickadate.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">
+<!-- END: Vendor CSS-->
+<!-- BEGIN: Page CSS-->
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/core/menu/menu-types/horizontal-menu.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/plugins/forms/pickers/form-flat-pickr.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/css/plugins/forms/pickers/form-pickadate.css">
+<style>
+.mg {
+	margin: 10px;
+}
+
+.btnSize {
+	width: 100%;
+	height: 100%;
+}
+
+.divSize {
+	height: 80px;
+}
+#readyModal{
+	    position:fixed; 
+        width: 100%;
+        height:100%; /* fixed 일때는 요따로 써도 됨 */
+        left:0;
+        top:0;
+        background-color: rgba(248,248,248, 0.8);
+        z-index: 200;
+        display: none;  /* 보통 초기에 안 보이겡 */
+}
+#readyContent {
+        margin: 10% auto;
+        width: 70%;   /* 부모 기준 */
+        height: 50%;
+        left:50%;
+        top:20%;
+ }
+</style>
+</head><!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="horizontal-layout horizontal-menu  navbar-floating footer-static  " data-open="hover" data-menu="horizontal-menu" data-col="">
+
+
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content " style="padding-top: 0px;">
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-body">
+                
+                
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="nav nav-pills mb-2" style="padding-top: 40px; padding-bottom: 20px;">
+                            <!-- account -->
+	                           <li class="nav-item">
+    	                            <a class="nav-link active" onclick="goPage('<%=request.getContextPath()%>/admin/facilityManage/restrictedArea.do','M930100','ifr')">
+        	                            <i data-feather="lock" class="font-medium-3 me-50"></i>
+            	                        <span class="fw-bold">멀티미디어실 사용자 조회</span>
+                	                </a>
+                    	        </li>
+                            
+                        	    <li class="nav-item">
+                            	    <a class="nav-link " onclick="goPage('<%=request.getContextPath()%>/admin/facilityManage//restrictedArea/log.do','M930101','ifr')">
+                                	    <i data-feather="bell" class="font-medium-3 me-50"></i>
+                                    	<span class="fw-bold">멀지미디어실 통계</span>
+                                	</a>
+                                 </li>   
+                        	</ul>
+                  	  </div>
+             	 </div>
+                
+   	
+   	
+   						<div class="card" style="min-height: 100px">
+		   					<div class="row justify-content-between">
+			   						<div class="col-md-6 mb-1">
+									<label class="form-label" for="fp-default"><h3>날짜 선택</h3></label>
+									<input type="text" id="fp-default" name="fr_day" class="form-control flatpickr-basic" value="2022-11-15" placeholder="YYYY-MM-DD" />
+								</div>
+			   					<div class="col-md-6 mb-1">
+			   					  	<label class="form-label" for="fp-default"><h3>멀티 미디어실 선택</h3></label>	
+			   						<select  aria-controls="DataTables_Table_0" onchange="ajaxPlace()" class="form-select" id ="dayCheck">
+<!-- 			   							<option value="0">멀티미디어실선택</option> -->
+			   							<option value="m1">멀티미디어 1실</option>
+			   							<option value="m2">멀티미디어 2실</option>
+			   							<option value="m3">멀티미디어 3실</option>
+			   							<option value="m4">멀티미디어 4실</option>
+			   						</select>
+		   						</div>
+	   						</div>
+         				</div>
+         				
+         				
+         				
+	         				
+	         		<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">좌석 정보</h4>
+							</div>
+							
+							<div class="card-body" id="ajaxArea" style="min-height: 430px">
+									<c:forEach var="i" begin="1" end="4">
+										<div class="row mg">
+										<c:forEach var="j" begin="1" end="4">
+											<div class="col-3 divSize">
+												<button id="seatNum${i}0${j}" type="button" onclick="openModal(${i}0${j})"
+												class="btn btn-outline-primary waves-effect btnSize">${i}0${j}</button>
+											</div>
+										</c:forEach>
+											</div>
+									</c:forEach>
+							</div>
+            	     </div>
+            	     <script>
+            	     window.onload = function(){
+            	     var roomStatusList = ${seatCount};	 
+            	     var index= 0;
+            	     <c:forEach var="i" begin="1" end="4">
+         				<c:forEach var="j" begin="1" end="4">
+    	        			var button_seat_reset = document.querySelector('#seatNum'+${i}+'0'+${j});
+         					if(roomStatusList[index]>0){
+    	        				button_seat_reset.className = 'btn btn-outline-danger waves-effect btnSize';
+         					}else{
+         						button_seat_reset.className = 'btn btn-outline-primary waves-effect btnSize';
+         					}
+    	        			index+=1;
+    					</c:forEach>
+    				</c:forEach>
+            	     }
+            	     </script>
+            	     
+        </div>
+    </div>
+</div>
+    
+    
+<!-- BEGIN  readdyModal -->
+<div class="container">
+<div id="readyModal" >
+	<div id="readyContent">
+		<div class="card">
+			<div class="container">
+			<div class="card-header"><h1>이용자 정보</h1></div>
+								<br>
+				<div class="card-body text-white bg-dark" style="border: 1px solid;">
+					<div style="float: right; color: red;">9시~11시</div>
+					<div id="9h">
+						<div>예약 없음</div>
+					</div>		
+				</div>
+				<br>
+				<div class="card-body text-white bg-dark" style="border: 1px solid;">
+					<div style="float: right; color: red;">11시~13시</div>
+					<div id="11h">
+						<div>예약 없음</div>
+					</div>	
+				</div>
+				<br>
+				<div class="card-body text-white bg-dark" style="border: 1px solid;">
+					<div style="float: right; color: red;">13시~15시</div>
+					<div id="13h">
+						<div>예약 없음</div>
+					</div>	
+				</div>
+				<br>
+				<div class="card-body text-white bg-dark" style="border: 1px solid;">
+					<div style="float: right; color: red;">15시~17시</div>
+					<div id="15h">
+						<div>예약 없음</div>
+					</div>	
+				</div>
+				<div class="card-footer d-flex  justify-content-end">
+					<div class="col-4">
+					<button type="button"  class="btn btn-outline-primary" style="width:100%" onclick="closeModal();">닫기</button>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- END Modal -->    
+    
+    	
+    
+    
+    
+<script>
+		function openModal(roomNum){
+			var rmodal = document.querySelector("#readyModal");
+			var fr_dayone = document.querySelector("#fp-default");
+			var fac_codeone = document.querySelector("#dayCheck");
+			var fr_seatone = roomNum
+			
+			var data = 
+			{
+					"fr_day":fr_dayone.value,
+					"fac_code":fac_codeone.value,
+					"fr_seat":fr_seatone
+			}
+			
+			alert(JSON.stringify(data));
+			
+			$.ajax({
+					type : "POST",
+					 url : "profile.do",
+		        	data : JSON.stringify(data),
+		        	contentType:"application/json;charset=utf-8",
+		     	 success : function(data){
+		     	 			for(var i=0; i<data.length; i++){
+			     	 			if(data[i].fr_hour == 9){
+			     	 				var html = "";
+			     	 				$('#9h').empty();
+			     	 				html += `<div>ID: \${data[i].mem_id}</div>`;
+			    					html += `<div>이름: \${data[i].mem_name}</div>`;
+			    					html +=`<div>전화번호:\${data[i].mem_phone}</div>`
+			    					$('#9h').append(html);
+			     	 			}else if(data[i].fr_hour == 11){
+			     	 				var html = "";
+			     	 				$('#11h').empty();
+			     	 				html += `<div>ID: \${data[i].mem_id}</div>`;
+			    					html += `<div>이름: \${data[i].mem_name}</div>`;
+			    					html +=`<div>전화번호:\${data[i].mem_phone}</div>`
+			    					$('#11h').append(html);
+			     	 			}else if(data[i].fr_hour == 13){
+			     	 				var html = "";
+			     	 				$('#13h').empty();
+			     	 				html += `<div>ID: \${data[i].mem_id}</div>`;
+			    					html += `<div>이름: \${data[i].mem_name}</div>`;
+			    					html +=`<div>전화번호:\${data[i].mem_phone}</div>`
+			    					$('#13h').append(html);
+			     	 			}else if(data[i].fr_hour == 15){
+			     	 				var html = "";
+			     	 				$('#15h').empty();
+			     	 				html += `<div>ID: \${data[i].mem_id}</div>`;
+			    					html += `<div>이름: \${data[i].mem_name}</div>`;
+			    					html +=`<div>전화번호:\${data[i].mem_phone}</div>`
+			    					$('#15h').append(html);
+			     	 			}
+		     	 			}
+		     	 			},
+		     	   error : function(XMLHttpRequest, textStatus, errorThrown){
+				            alert("에이젝스 에러: "+textStatus);
+				            }		
+			});
+			
+			
+			rmodal.style.display = "block";
+		}
+
+		function closeModal(){
+			var html = "<div>예약 없음</div>";
+			$('#9h').empty();
+			$('#11h').empty();
+			$('#13h').empty();
+			$('#15h').empty();
+			$('#9h').append(html);
+			$('#11h').append(html);
+			$('#13h').append(html);
+			$('#15h').append(html);
+			var rmodal = document.querySelector("#readyModal");
+			rmodal.style.display = "none";
+		}
+</script>    
+
+
+	
+<script>
+
+
+		function ajaxPlace() {
+			
+			var date_seat = document.querySelector('#fp-default'); 		
+			var dayCheck = document.querySelector("#dayCheck");
+			var area = $("#ajaxArea");
+			
+			var html ="";
+			var subHtml ="";
+			
+			if(!date_seat.value){
+		    	alert("날짜를 설정하세요.");
+		    	return;
+		    }
+			
+			
+			var data = {
+			    		"day": date_seat.value,
+			    		"place": dayCheck.value
+			    }
+			    
+			
+			
+			  $.ajax({
+			    	type : "POST", 
+		            url : "ajaxPlace.do",
+		            data : data,
+		            success : function(res){
+						alert(res)
+		            	if(res==="m1"||res==="m2"){
+							for(var i =1; i<=4; i++){
+					   			html +=`<div class="row mg">`
+								for(var j=1; j<=4; j++){
+				    				html +=`<div class="col-3 divSize">`
+				    				html +=`<button  id="seatNum\${i}0\${j}" type="button" onclick="openModal(\${i}0\${j})" class="btn btn-outline-primary waves-effect btnSize" >\${i}0\${j}</button>`
+				    				html +=`</div>`
+				    		   }
+				    		html +=`</div>`
+				    		}
+							area.empty();
+							area.append(html) 
+		            	}else if(res==="m3"||res==="m4"){
+							for(var i =1; i<=2; i++){
+			    			    subHtml+=`<div class="container row" style="float: none; margin:100 auto;" >`
+				    			for(var j=1; j<=2; j++){
+					    				subHtml+=`<div class="col-md-3" style="float: none; margin:0 auto;">`
+					    				subHtml+=`<button  id="seatNum\${i}0\${j}"  type="button" onclick="openModal(\${i}0\${j})" class="btn btn-outline-primary waves-effect btnSize" style="width: 250px; height: 200px">\${i}0\${j}</button>`
+					    				subHtml+=`</div>`
+				    				}
+			    				subHtml+=`</div>`
+			    				subHtml+=`<br>`
+			    			}
+							area.empty();
+							area.append(subHtml)  
+						}
+					     
+		            },
+		            error : function(XMLHttpRequest, textStatus, errorThrown){
+		            	alert("에이젝스 에러: "+textStatus)
+		            	
+		            }
+			    }); 
+    	}
+</script>
+  
+	    	
+   
+    
+    
+    
+    
+    <!-- END: Content-->
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+    <!-- BEGIN: Vendor JS-->
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/vendors.min.js"></script>
+	<!-- BEGIN Vendor JS-->
+	<!-- BEGIN: Page Vendor JS-->
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/ui/jquery.sticky.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/forms/wizard/bs-stepper.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/extensions/toastr.min.js"></script>
+	<!-- END: Page Vendor JS-->
+	<!-- BEGIN: Theme JS-->
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/core/app-menu.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/core/app.js"></script>
+	<!-- END: Theme JS-->
+	<!-- BEGIN: Page Vendor JS-->
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/pickers/pickadate/picker.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/pickers/pickadate/picker.time.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/pickers/pickadate/legacy.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
+	<!-- END: Page Vendor JS-->
+	<!-- BEGIN: Page JS-->
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/scripts/forms/pickers/form-pickers.js"></script>
+	<!-- END: Page JS-->
+	<!-- BEGIN: Page JS-->
+	<script
+		src="<%=request.getContextPath()%>/resources/vuexy/html-version/Bootstrap5/vuexy-html-bootstrap5-admin-template/app-assets/js/scripts/pages/app-ecommerce-checkout.js"></script>
+	<!-- handlebars Template -->
+	<script src="<%=request.getContextPath()%>/resources/js/common.js"></script>
+	<script>
+		$(window).on('load', function() {
+			if (feather) {
+				feather.replace({
+					width : 14,
+					height : 14
+				});
+			}
+		})
+	</script>
+</body>
+<!-- END: Body-->
+
+</html>

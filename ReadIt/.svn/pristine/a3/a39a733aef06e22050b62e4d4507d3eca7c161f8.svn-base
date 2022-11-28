@@ -1,0 +1,132 @@
+package bookred.admin.service;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import bookred.admin.dao.RentReturnDAO;
+import bookred.member.dto.RMVO;
+import bookred.member.dto.RentBackVO;
+import bookred.admin.dto.AdminRentVO;
+import bookred.member.dto.LockerVO;
+import bookred.member.dto.RMVO;
+
+public class RentReturnServiceImpl implements RentReturnService {
+
+	private RentReturnDAO rentReturnDAO;
+
+	public void setRentReturnDAO(RentReturnDAO rentReturnDAO) {
+		this.rentReturnDAO = rentReturnDAO;
+	}
+
+	@Override
+	public void registRent(String mem_id, ArrayList<String> bookList) throws SQLException {
+		int rm_no = rentReturnDAO.selectRMSeqNextVal();
+
+		RMVO rmVO = new RMVO();
+		rmVO.setRm_no(rm_no);
+		rmVO.setMem_id(mem_id);
+		System.out.println("rm_no" + rm_no);
+		System.out.println("mem_id" + mem_id);
+		rentReturnDAO.insertRMLibrary(rmVO);
+
+		RentBackVO rentBackVO = new RentBackVO();
+		for (String book_no : bookList) {
+			System.out.println("service " + book_no);
+			int rent_no = rentReturnDAO.selectRentSeqNext();
+			int bookNo = Integer.parseInt(book_no);
+			rentBackVO.setRent_no(rent_no);
+			rentBackVO.setRm_no(rm_no);
+			rentBackVO.setBook_no(bookNo);
+			rentBackVO.setMem_id(mem_id);
+
+			rentReturnDAO.insertRentBackLibrary(rentBackVO);
+		}
+	}
+
+	public LockerVO getLocker(int rm_no) throws SQLException {
+		LockerVO locker = rentReturnDAO.selectLocker(rm_no);
+		return locker;
+
+	}
+
+	@Override
+	public List<AdminRentVO> getLockerRentList(int rent_code) throws SQLException {
+		List<AdminRentVO> rentList = new ArrayList<AdminRentVO>();
+		List<RMVO> rmList = rentReturnDAO.selectRMList(rent_code);
+		for (RMVO rmvo : rmList) {
+			int rm_no = rmvo.getRm_no();
+			System.out.println(rm_no);
+			List<String> isbnList = rentReturnDAO.selectIsbnList(rm_no);
+			LockerVO locker = rentReturnDAO.selectLocker(rm_no);
+			for (String isbn : isbnList) {
+				AdminRentVO adminRentVO = new AdminRentVO();
+				adminRentVO.setRm_no(rm_no);
+				adminRentVO.setMem_id(rmvo.getMem_id());
+				adminRentVO.setRent_code(rmvo.getRent_code());
+				adminRentVO.setRent_status(rmvo.getRent_status());
+				adminRentVO.setWant_date(rmvo.getWant_date());
+				adminRentVO.setIsbn(isbn);
+				adminRentVO.setEtc("사물함번호 : " + locker.getLocker_num());
+				rentList.add(adminRentVO);
+			}
+		}
+		return rentList;
+	}
+
+	@Override
+	public List<AdminRentVO> getFieldRentList(int rent_code) throws SQLException {
+		List<AdminRentVO> rentList = new ArrayList<AdminRentVO>();
+		List<RMVO> rmList = rentReturnDAO.selectRMList(rent_code);
+		for (RMVO rmvo : rmList) {
+			int rm_no = rmvo.getRm_no();
+			System.out.println(rm_no);
+			List<String> isbnList = rentReturnDAO.selectIsbnList(rm_no);
+			for (String isbn : isbnList) {
+				AdminRentVO adminRentVO = new AdminRentVO();
+				adminRentVO.setRm_no(rm_no);
+				adminRentVO.setMem_id(rmvo.getMem_id());
+				adminRentVO.setRent_code(rmvo.getRent_code());
+				adminRentVO.setRent_status(rmvo.getRent_status());
+				adminRentVO.setWant_date(rmvo.getWant_date());
+				adminRentVO.setIsbn(isbn);
+				adminRentVO.setEtc("");
+				rentList.add(adminRentVO);
+			}
+		}
+		return rentList;
+	}
+
+	@Override
+	public List<AdminRentVO> getDriveRentList(int rent_code) throws SQLException {
+		List<AdminRentVO> rentList = new ArrayList<AdminRentVO>();
+		List<RMVO> rmList = rentReturnDAO.selectRMList(rent_code);
+		for (RMVO rmvo : rmList) {
+			int rm_no = rmvo.getRm_no();
+			System.out.println(rm_no);
+			List<String> isbnList = rentReturnDAO.selectIsbnList(rm_no);
+			String car_no = rentReturnDAO.selectCarNo(rm_no);
+			for (String isbn : isbnList) {
+
+				AdminRentVO adminRentVO = new AdminRentVO();
+				adminRentVO.setRm_no(rm_no);
+				adminRentVO.setMem_id(rmvo.getMem_id());
+				adminRentVO.setRent_code(rmvo.getRent_code());
+				adminRentVO.setRent_status(rmvo.getRent_status());
+				adminRentVO.setWant_date(rmvo.getWant_date());
+				adminRentVO.setIsbn(isbn);
+				adminRentVO.setEtc("차번호 : " + car_no);
+				rentList.add(adminRentVO);
+			}
+		}
+		return rentList;
+	}
+
+	@Override
+	public void modifyRMStatus(RMVO rm) throws SQLException {
+		rentReturnDAO.updateRMStatus(rm);
+	}
+}

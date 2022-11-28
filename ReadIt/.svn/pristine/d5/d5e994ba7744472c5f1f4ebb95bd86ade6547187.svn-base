@@ -1,0 +1,65 @@
+package bookred.admin.service;
+
+import java.sql.SQLException;
+import java.util.Map;
+
+
+import bookred.admin.command.Criteria;
+import bookred.admin.dao.AdminDAO;
+import bookred.admin.dto.AdminVO;
+import bookred.exception.InvalidPasswordException;
+import bookred.exception.NotFoundIdException;
+
+public class AdminServiceImpl implements AdminService {
+	
+	private AdminDAO adminDAO;
+	
+	public void setAdminDAO(AdminDAO adminDAO) {
+		this.adminDAO = adminDAO;
+	}
+
+	@Override
+	public void login(String ad_id, String id_pwd) throws NotFoundIdException, InvalidPasswordException, SQLException {
+		AdminVO admin = adminDAO.selectAdminById(ad_id);
+//		System.out.println("로그인을 시도한 유저의 권한 : " + admin.getAd_auth());
+		if (admin == null)
+			throw new NotFoundIdException();
+		if (!id_pwd.equals(admin.getAd_pwd()))
+			throw new InvalidPasswordException();
+
+	}
+
+	@Override
+	public Map<String, Object> getAdminList(Criteria cri) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AdminVO getAdmin(String ad_id) throws SQLException {
+		AdminVO admin = adminDAO.selectAdminById(ad_id);
+		return admin;
+	}
+
+	@Override
+	public void regist(AdminVO admin) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void modify(AdminVO admin) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void remove(String ad_id) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+}

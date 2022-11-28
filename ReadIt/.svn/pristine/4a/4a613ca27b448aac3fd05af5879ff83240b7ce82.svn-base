@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+	멀티미디어실 번호: <input type="text" value="멀티미디어 1실" disabled/>
+	</div>
+	<div> 
+	 시간 이용시간:<select name="DataTables_Table_0_length"
+		aria-controls="DataTables_Table_0" class="form-select"
+		style="width: 200px;">
+		<option value="10시~11시">10시~11시</option>
+		<option value="11시~12시">11시~12시</option>
+		<option value="12시~13시">12시~13시</option>
+		<option value="13시~14시">13시~14시</option>
+		<option value="14시~15시">14시~15시</option>
+		<option value="15시~16시">15시~16시</option>
+		<option value="16시~17시">16시~17시</option>
+	</select>
+	</div>
+	
+</body>
+</html>

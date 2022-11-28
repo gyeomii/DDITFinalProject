@@ -1,0 +1,91 @@
+package bookred.member.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import bookred.book.dto.BookVO;
+import bookred.common.dto.LockerVO;
+import bookred.member.service.ReserveService;
+
+@Controller
+@RequestMapping("/main/myInfo")
+public class MemberReserveController {
+	
+	@Autowired
+	private ReserveService reserveService;
+	
+	@RequestMapping("/fieldReserve")
+	public String fieldReserve(Model model, String mem_id, String isbn)throws Exception{
+		String url="/member/myInfo/cart/reserve/fieldReserve";
+		System.out.println(isbn);
+		System.out.println(mem_id);
+		String[] isbnList = isbn.split(",");
+		
+		List<BookVO> bookList = reserveService.getCartBookList(isbnList);
+		for (BookVO bookVO : bookList) {
+			System.out.println(bookVO.getBook_isbn());
+		}
+		model.addAttribute("bookList", bookList);
+		return url;
+	}	
+	
+	@RequestMapping("/lockerReserve")
+	public String lockerReserve(Model model, String mem_id, String isbn)throws Exception{
+		String url="/member/myInfo/cart/reserve/lockerReserve";
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		System.out.println(isbn);
+		System.out.println(mem_id);
+		String[] isbnList = isbn.split(",");
+		
+		List<BookVO> bookList = reserveService.getCartBookList(isbnList);
+		for (BookVO bookVO : bookList) {
+			System.out.println(bookVO.getBook_isbn());
+		}
+		
+		List<LockerVO> lockerList = reserveService.getLockerList();
+		
+		dataMap.put("bookList", bookList);
+		dataMap.put("lockerList", lockerList);
+		model.addAttribute("dataMap", dataMap);
+		return url;
+	}
+	
+	
+	@RequestMapping("/driveReserve")
+	public String driveReserve(Model model, String mem_id, String isbn)throws Exception{
+		String url="/member/myInfo/cart/reserve/driveReserve";
+		System.out.println(isbn);
+		System.out.println(mem_id);
+		String[] isbnList = isbn.split(",");
+		
+		List<BookVO> bookList = reserveService.getCartBookList(isbnList);
+		for (BookVO bookVO : bookList) {
+			System.out.println(bookVO.getBook_isbn());
+		}
+		model.addAttribute("bookList", bookList);
+		return url;
+	}	
+	
+	@RequestMapping("/deliveryReserve")
+	public String deliveryReserve(Model model, String mem_id, String isbn)throws Exception{
+		String url="/member/myInfo/cart/reserve/deliveryReserve";
+		System.out.println(isbn);
+		System.out.println(mem_id);
+		String[] isbnList = isbn.split(",");
+		
+		List<BookVO> bookList = reserveService.getCartBookList(isbnList);
+		for (BookVO bookVO : bookList) {
+			System.out.println(bookVO.getBook_isbn());
+		}
+		model.addAttribute("bookList", bookList);
+		return url;
+	}	
+	
+}

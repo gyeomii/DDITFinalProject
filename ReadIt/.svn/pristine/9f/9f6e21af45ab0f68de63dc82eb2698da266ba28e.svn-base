@@ -1,0 +1,43 @@
+package bookred.member.service;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import bookred.book.dto.BookVO;
+import bookred.common.dto.LockerVO;
+import bookred.member.dao.ReserveDAO;
+
+public class ReserveServiceImpl implements ReserveService {
+	
+	private ReserveDAO reserveDAO;
+
+	public void setReserveDAO(ReserveDAO reserveDAO) {
+		this.reserveDAO = reserveDAO;
+	}
+	
+	@Override
+	public List<BookVO> getCartBookList(String[] isbnArray) throws SQLException {
+		List<BookVO> bookList = new ArrayList<BookVO>();
+		List<String> isbnList = new ArrayList<String>();
+		for(int i=0; i<isbnArray.length; i++) {
+			String isbn = isbnArray[i];
+			int count = reserveDAO.selectRentableByISBN(isbn);
+			if(count > 0 ) {
+				isbnList.add(isbn);
+			}
+		}
+		for (String isbn : isbnList) {
+			BookVO book = reserveDAO.selectBookByISBN(isbn);
+			bookList.add(book);
+		}
+		return bookList;
+	}
+
+	@Override
+	public List<LockerVO> getLockerList() throws SQLException {
+		List<LockerVO> lockerList = reserveDAO.selectLockerList();
+		return lockerList;
+	}
+
+}

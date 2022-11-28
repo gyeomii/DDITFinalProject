@@ -1,0 +1,16 @@
+package bookred.main.service;
+
+import java.util.List;
+import java.util.Map;
+
+import bookred.main.dto.MultiOneVO;
+
+public interface MultiOneService {
+
+	void regist(MultiOneVO multiOne) throws Exception;
+
+	List<String> getSeatByDateAndTime(MultiOneVO multiOne) throws Exception;
+	
+	Map<String, Object> getMeetingTime(String day) throws Exception;
+
+}

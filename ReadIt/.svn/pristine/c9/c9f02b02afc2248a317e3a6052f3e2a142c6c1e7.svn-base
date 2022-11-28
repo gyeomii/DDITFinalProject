@@ -1,0 +1,60 @@
+package bookred.admin.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+
+import bookred.admin.command.Criteria;
+import bookred.admin.dto.AdminInfoVO;
+import bookred.admin.dto.SelectAdminVO;
+import bookred.member.dto.MemberVO;
+
+public class AdminInfoDAOImpl implements AdminInfoDAO {
+	
+	private SqlSession session;
+
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public SelectAdminVO selectAdminById(String id) throws SQLException {
+		SelectAdminVO admin = session.selectOne("UserManage-Mapper.selectAdminById", id);
+		return admin;
+	}
+
+	@Override
+	public void updateFinger(SelectAdminVO filename) throws SQLException {
+		session.update("UserManage-Mapper.updateFinger", filename);
+	}
+
+	@Override
+	public List<MemberVO> selectAdminListNotJoin() throws SQLException {
+		List<MemberVO> adminNotJoin = session.selectList("UserManage-Mapper.selectAdminListNotJoin");
+		return adminNotJoin;
+	}
+
+	@Override
+	public void updateAdminForCancle(String mem_id) throws SQLException {
+		session.update("UserManage-Mapper.updateJoinStateToCancle",mem_id);
+	}
+
+	@Override
+	public void updateAdminForApprove(String mem_id) throws SQLException {
+		session.update("UserManage-Mapper.updateJoinStateToApprove",mem_id);
+	}
+
+	@Override
+	public void insertToAdminInfoForApprovedAdmin(AdminInfoVO adminInfo) throws SQLException {
+		session.insert("UserManage-Mapper.insertToAdminInfoForApprovedAdmin", adminInfo);
+	}
+
+	@Override
+	public void registImg(AdminInfoVO vo) throws SQLException {
+		session.insert("UserManage-Mapper.registFingetprintImg", vo);
+	}
+
+
+}

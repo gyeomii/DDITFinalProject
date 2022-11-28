@@ -1,0 +1,12 @@
+package bookred.member.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import bookred.book.dto.BookVO;
+
+public interface ReserveDAO {
+	public int selectRentableByISBN(String isbn) throws SQLException;
+	public BookVO selectBookByISBN(String isbn) throws SQLException;
+	public List<BookVO> selectRentBookList(String mem_id) throws SQLException;
+}

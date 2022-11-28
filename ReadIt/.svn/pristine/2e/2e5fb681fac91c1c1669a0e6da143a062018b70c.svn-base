@@ -1,0 +1,20 @@
+package bookred.admin.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import bookred.admin.command.Criteria;
+import bookred.admin.dto.AdminInfoVO;
+import bookred.admin.dto.SelectAdminVO;
+import bookred.member.dto.MemberVO;
+
+
+public interface AdminInfoDAO {
+	
+	SelectAdminVO selectAdminById(String id)throws SQLException;
+	
+	void updateFinger(SelectAdminVO filename) throws SQLException; 
+	
+	List<MemberVO> selectAdminListNotJoin() throws SQLException;
+
+}

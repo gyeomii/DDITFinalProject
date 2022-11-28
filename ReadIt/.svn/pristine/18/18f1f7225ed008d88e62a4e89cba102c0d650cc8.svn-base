@@ -1,0 +1,11 @@
+package bookred.admin.service;
+
+import bookred.admin.dao.FacilityManagementDAO;
+
+public class FacilityManagementServiceImpl implements FacilityManagementService {
+		
+	private FacilityManagementDAO facilityManagementDAO;
+	public void setFacilityManagementDAO(FacilityManagementDAO facilityManagementDAO) {
+		this.facilityManagementDAO = facilityManagementDAO;
+	}
+}

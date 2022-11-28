@@ -1,0 +1,124 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Book-Mapper">
+	
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and book_title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'a'.toString()">
+			and book_author like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'i'.toString()">
+			and book_isbn like '%'||#{keyword}||'%'
+		</if>
+	</sql>
+	
+	<insert id="insertBook" parameterType="book">
+	insert 
+	into 
+	book(book_no, book_isbn, book_title, book_author, book_publisher, book_publishdate, book_imgurl, kdc_no,state_code,book_regDate) 
+    values
+    (#{book_no},#{book_isbn},#{book_title},#{book_author},#{book_publisher}, 
+     #{book_publishDate},#{book_imgURL} ,#{kdc_no},#{state_code},#{book_regDate})
+	</insert>
+	
+	<select id="selectBookList" resultType="book">
+		select book_no, book_isbn, book_title
+		from book
+		order by book_no
+	</select>
+	
+	
+	<select id="selectALLBookList" resultType="book">
+				
+				select *
+		from(
+		select rownum as rnum,SearchBookResult.*
+		from (
+		SELECT *
+		FROM ( select *
+		from book
+		where book_no is not null)
+		where book_no is not null
+		<include refid="search" />
+		) SearchBookResult
+		    <![CDATA[
+		    where rownum < #{endRow}
+		    ]]>
+		)
+		 <![CDATA[
+		where rnum >= #{startRow}		
+		 ]]>
+		 order by book_no
+		
+	</select>	
+	
+	
+	<select id="selectBookSeqNext" resultType="int">
+		select book_no_seq.nextval as book_no from dual
+	</select>
+	
+	<select id="selectBookByBookNo" resultType="book">
+		select * from book where book_no = #{book_no}
+	</select>
+	
+	<select id="selectAllBookByBookIsbn" resultType="book"> 
+		select * from book where book_isbn = #{book_isbn} 
+ 	</select> 
+ 	
+<!-- ISBN으로 검색하고, 중복제거해서 보여주는 쿼리문 새로 짬(채희진) -->
+	<select id="selectBookByBookIsbn" resultType="book">
+		select *
+		from (
+        		select book.*, row_number() over(PARTITION by book_isbn order by book_isbn) as rn
+        		from book
+    	)
+		where rn = 1 and book_isbn = #{book_isbn}
+	</select>
+	
+	<select id="selectBookByBookTitle" resultType="book">
+		select * from book where book_title = #{book_title}
+	</select>
+	
+	<select id="selectBookListCount" resultType="int">
+		SELECT count(*) 
+		FROM ( SELECT A.*,ROW_NUMBER() OVER(PARTITION BY book_isbn ORDER BY book_isbn) RN 
+				FROM book A)
+		WHERE RN=1
+		<include refid="search" />
+	</select>
+	
+	<select id="selectAllBookListCount" resultType="int">
+		SELECT count(*) 
+		FROM book
+		where book_no is not null
+		<include refid="search" />
+	</select>
+	
+	
+	<select id="searchBookByBookTitle" resultType="book">
+		select *
+		from(
+		select rownum as rnum,SearchBookResult.*
+		from (
+		SELECT *
+		FROM ( SELECT A.*,ROW_NUMBER() OVER(PARTITION BY book_isbn ORDER BY book_isbn) RN 
+				FROM book A)
+		WHERE RN=1 
+		<include refid="search" />
+		) SearchBookResult
+		    <![CDATA[
+		    where rownum < #{endRow}
+		    ]]>
+		)
+		 <![CDATA[
+		where rnum >= #{startRow}		
+		 ]]>
+	</select>	
+	
+	
+	
+</mapper>

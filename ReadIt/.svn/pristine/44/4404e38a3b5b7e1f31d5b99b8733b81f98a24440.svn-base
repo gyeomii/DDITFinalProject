@@ -1,0 +1,29 @@
+package bookred.member.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import bookred.book.dto.BookVO;
+import bookred.common.dto.LockerMasterVO;
+import bookred.member.dto.BkReserveVO;
+import bookred.member.dto.LockerVO;
+import bookred.member.dto.RMVO;
+import bookred.member.dto.RentBackVO;
+
+public interface ReserveDAO {
+	public int selectRentableByISBN(String book_isbn) throws SQLException;
+	public void updateBookStock(String book_isbn)throws SQLException;
+	
+	public BookVO selectBookByISBN(String book_isbn) throws SQLException;
+	public List<RentBackVO> selectRentBookList(String mem_id) throws SQLException;
+	public List<BkReserveVO> selectReserveList(String mem_id) throws SQLException;
+	public List<LockerMasterVO> selectLockerList()throws SQLException;
+	public void insertRM(RMVO rmVO)throws SQLException;
+	public void insertBookReserve(Map<String, Object> dataParam)throws SQLException;
+	public void insertLocker(LockerVO locker)throws SQLException;
+	
+	public void updateLockerMaster(int is_usable, String locker_num) throws SQLException;
+	
+	public int selectRMSeqNextVal()throws SQLException;
+}

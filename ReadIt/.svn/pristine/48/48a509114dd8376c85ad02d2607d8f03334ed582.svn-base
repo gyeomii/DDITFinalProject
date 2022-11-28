@@ -1,0 +1,44 @@
+package bookred.member.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import bookred.book.dto.BookVO;
+import bookred.common.dto.LockerVO;
+import bookred.member.dto.RMVO;
+import bookred.member.dto.RentBackVO;
+
+public class ReserveDAOImpl implements ReserveDAO {
+	private SqlSession session;
+
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+	@Override
+	public int selectRentableByISBN(String isbn) throws SQLException{
+		int count = session.selectOne("Reserve-Mapper.selectRentableByISBN",isbn);
+		return count;
+	}
+	@Override
+	public BookVO selectBookByISBN(String isbn) throws SQLException {
+		BookVO book = session.selectOne("Reserve-Mapper.selectBookByISBN",isbn);
+		return book;
+	}
+	@Override
+	public List<RentBackVO> selectRentBookList(String mem_id) throws SQLException {
+		List<RentBackVO> rentList = session.selectList("Reserve-Mapper.selectRentBookList",mem_id);
+		return rentList;
+	}
+	@Override
+	public List<LockerVO> selectLockerList() throws SQLException {
+		List<LockerVO> lockerList = session.selectList("Reserve-Mapper.selectLockerList");
+		return lockerList;
+	}
+	@Override
+	public void insertRM(RMVO rmVO) throws SQLException {
+		session.insert
+	}
+
+}

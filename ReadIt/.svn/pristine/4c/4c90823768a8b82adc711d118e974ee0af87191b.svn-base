@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="RentReturn-Mapper">
+	<select id="selectBkReserveList" resultType="bookReserve">
+		select * 
+		from book_reserve 
+		where rm_no = #{rm_no}
+	</select>
+	
+	<select id="selectRMList" resultType="rm">
+		select * 
+		from rm
+	</select>
+	
+	<select id="selectLockerList" resultType="locker">
+		select * 
+		from locker
+		where rm_no = #{rm_no}
+	</select>
+	
+</mapper>

@@ -1,0 +1,214 @@
+package bookred.member.service;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import bookred.book.dto.BookVO;
+import bookred.common.dto.LockerMasterVO;
+import bookred.member.command.RentPageMaker;
+import bookred.member.dao.CartDAO;
+import bookred.member.dao.ReserveDAO;
+import bookred.member.dto.BkReserveVO;
+import bookred.member.dto.CartVO;
+import bookred.member.dto.DriveThruVO;
+import bookred.member.dto.LockerVO;
+import bookred.member.dto.RMVO;
+import bookred.member.dto.RentBackVO;
+
+public class ReserveServiceImpl implements ReserveService {
+
+	private ReserveDAO reserveDAO;
+	private CartDAO cartDAO;
+
+	public void setReserveDAO(ReserveDAO reserveDAO) {
+		this.reserveDAO = reserveDAO;
+	}
+
+	public void setCartDAO(CartDAO cartDAO) {
+		this.cartDAO = cartDAO;
+	}
+
+	@Override
+	public List<BookVO> getCartBookList(String[] isbnArray) throws SQLException {
+		List<BookVO> bookList = new ArrayList<BookVO>();
+		List<String> isbnList = new ArrayList<String>();
+		for (int i = 0; i < isbnArray.length; i++) {
+			String isbn = isbnArray[i];
+			int count = reserveDAO.selectRentableByISBN(isbn);
+			if (count > 0) {
+				isbnList.add(isbn);
+			}
+		}
+		for (String isbn : isbnList) {
+			BookVO book = reserveDAO.selectBookByISBN(isbn);
+			bookList.add(book);
+		}
+		return bookList;
+	}
+
+	@Override
+	public List<LockerMasterVO> getLockerList() throws SQLException {
+		List<LockerMasterVO> lockerList = reserveDAO.selectLockerList();
+		return lockerList;
+	}
+
+	@Override
+	public void registLockerReserve(String mem_id, int rent_code, String[] isbnList, String locker_num)
+			throws SQLException {
+		// rmSeq
+		int rm_no = reserveDAO.selectRMSeqNextVal();
+
+		// insert RM
+		RMVO rmVO = new RMVO();
+		rmVO.setRm_no(rm_no);
+		rmVO.setMem_id(mem_id);
+		rmVO.setRent_code(rent_code);
+		rmVO.setWant_date(new Date());
+		reserveDAO.insertRM(rmVO);
+
+		// insertBookReserve, deleteCart
+		for (String book_isbn : isbnList) {
+			Map<String, Object> dataParam = new HashMap<String, Object>();
+			CartVO cart = cartDAO.selectCartListByIsbnAndId(book_isbn, mem_id);
+			int cart_no = cart.getCart_no();
+			dataParam.put("mem_id", mem_id);
+			dataParam.put("isbn", book_isbn);
+			dataParam.put("cart_no", cart_no);
+			dataParam.put("rm_no", rm_no);
+			reserveDAO.insertBookReserve(dataParam);
+			reserveDAO.updateBookStock(book_isbn);
+			cartDAO.deleteCartByCartNo(cart_no);
+		}
+
+		// registLocker
+		LockerVO locker = new LockerVO();
+		locker.setRm_no(rm_no);
+		locker.setLocker_num(locker_num);
+		locker.setLk_ispickup(0);
+		reserveDAO.insertLocker(locker);
+		reserveDAO.updateLockerMaster(0, locker.getLocker_num());
+	}
+
+	@Override
+	public void registFieldReserve(String mem_id, int rent_code, Date want_date, String[] isbnList)
+			throws SQLException {
+		// rmSeq
+		int rm_no = reserveDAO.selectRMSeqNextVal();
+
+		// insert RM
+		RMVO rmVO = new RMVO();
+		rmVO.setRm_no(rm_no);
+		rmVO.setMem_id(mem_id);
+		rmVO.setRent_code(rent_code);
+		rmVO.setWant_date(want_date);
+		reserveDAO.insertRM(rmVO);
+
+		// insertBookReserve, deleteCart
+		for (String book_isbn : isbnList) {
+			Map<String, Object> dataParam = new HashMap<String, Object>();
+			CartVO cart = cartDAO.selectCartListByIsbnAndId(book_isbn, mem_id);
+			int cart_no = cart.getCart_no();
+			dataParam.put("mem_id", mem_id);
+			dataParam.put("isbn", book_isbn);
+			dataParam.put("cart_no", cart_no);
+			dataParam.put("rm_no", rm_no);
+			reserveDAO.insertBookReserve(dataParam);
+			reserveDAO.updateBookStock(book_isbn);
+			cartDAO.deleteCartByCartNo(cart_no);
+		}
+	}
+
+	@Override
+	public void registDriveReserve(String mem_id, int rent_code, Date want_date, String[] isbnList, String dt_car_no)
+			throws SQLException {
+		int rm_no = reserveDAO.selectRMSeqNextVal();
+
+		// insert RM
+		RMVO rmVO = new RMVO();
+		rmVO.setRm_no(rm_no);
+		rmVO.setMem_id(mem_id);
+		rmVO.setRent_code(rent_code);
+		rmVO.setWant_date(want_date);
+		reserveDAO.insertRM(rmVO);
+
+		// insertBookReserve, deleteCart
+		for (String book_isbn : isbnList) {
+			Map<String, Object> dataParam = new HashMap<String, Object>();
+			CartVO cart = cartDAO.selectCartListByIsbnAndId(book_isbn, mem_id);
+			int cart_no = cart.getCart_no();
+			dataParam.put("mem_id", mem_id);
+			dataParam.put("isbn", book_isbn);
+			dataParam.put("cart_no", cart_no);
+			dataParam.put("rm_no", rm_no);
+			reserveDAO.insertBookReserve(dataParam);
+			reserveDAO.updateBookStock(book_isbn);
+			cartDAO.deleteCartByCartNo(cart_no);
+		}
+
+		// registLocker
+		DriveThruVO drive = new DriveThruVO();
+		drive.setRm_no(rm_no);
+		drive.setDt_car_no(dt_car_no);
+		drive.setDt_ispickup(0);
+		reserveDAO.insertDriveThru(drive);
+
+	}
+
+	@Override
+	public Map<String, Object> getAllRMList(String mem_id) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		System.out.println("servicemem_id " + mem_id);
+		RMVO rmVO = new RMVO();
+		rmVO.setMem_id(mem_id);
+		
+		rmVO.setRent_code(0);
+		List<RMVO> takeLibraryList = reserveDAO.selectRMTakeLibraryList(rmVO);
+		
+		rmVO.setRent_code(1);
+		List<RMVO> takeDeliveryList = reserveDAO.selectRMTakeDeliveryList(rmVO);
+		
+		rmVO.setRent_code(2);
+		List<RMVO> takeDriveThruList = reserveDAO.selectRMTakeDriveThruList(rmVO);
+		
+		rmVO.setRent_code(3);
+		List<RMVO> takeLockerList = reserveDAO.selectRMTakeLockerList(rmVO);
+		
+
+
+		dataMap.put("takeLibraryList", takeLibraryList);
+		dataMap.put("takeDeliveryList", takeDeliveryList);
+		dataMap.put("takeDriveThruList", takeDriveThruList);
+		dataMap.put("takeLockerList", takeLockerList);
+
+		return dataMap;
+	}
+
+	@Override
+	public void updateRMRentStatusToCancel(int rm_no) throws SQLException {
+		reserveDAO.updateRMRentStatusToCancel(rm_no);
+	}
+
+	@Override
+	public List<BookVO> getBookReserveListToBookInfo(int rm_no) throws SQLException {
+		List<BkReserveVO> bkReserveList = new ArrayList<BkReserveVO>();
+		List<BookVO> bookList = new ArrayList<BookVO>();
+				
+		bkReserveList = reserveDAO.selectBookReserveListByRmNo(rm_no);
+		
+		for (BkReserveVO bk : bkReserveList) {
+			
+			String book_isbn = bk.getIsbn();
+			System.out.println("ISBN : "  + book_isbn);
+			BookVO book = reserveDAO.selectBookByISBN(book_isbn);
+			bookList.add(book);
+		}
+		
+		return bookList;
+	}
+
+}

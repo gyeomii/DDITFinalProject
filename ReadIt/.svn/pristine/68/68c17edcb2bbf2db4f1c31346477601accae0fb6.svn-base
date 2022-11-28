@@ -1,0 +1,39 @@
+package bookred.socket.service;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import bookred.member.dto.RMVO;
+import bookred.socket.dao.SocketDAO;
+import bookred.socket.dto.AlramVO;
+
+public class SocketServiceImpl implements SocketService{
+	
+	private SocketDAO socketDAO;
+	public void setSocketDAO(SocketDAO socketDAO) {
+		this.socketDAO = socketDAO;
+	}
+	
+
+	@Override
+	public List<AlramVO> getAlramRMList() throws SQLException {
+		List<AlramVO> alramList = new ArrayList<AlramVO>(); 
+		List<RMVO> rmList = socketDAO.selectRMStatusZero();
+		
+		for (int i = 0; i < rmList.size(); i++) {
+			System.out.println("알람 RM" + i +rmList.get(i));
+		}
+		if (rmList.size()> 5) {
+			AlramVO alram = new AlramVO();
+			alram.setAlarmContent("빠른 처리가 요망됩니다.");
+			alram.setPrefix("신청된 대출 예약이 "+ rmList.size()+"개 있습니다.");
+			alramList.add(alram);
+			System.out.println(alram.getAlarmContent());
+		}
+		
+		
+		return alramList;
+	}
+
+}

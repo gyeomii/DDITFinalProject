@@ -1,0 +1,75 @@
+package bookred.main.service;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import bookred.admin.command.Criteria;
+import bookred.admin.command.PageMaker;
+import bookred.main.dao.OftenQnaDAO;
+import bookred.main.dto.OftenQnaVO;
+
+public class OftenQnaServiceImpl implements OftenQnaService {
+
+	
+	private OftenQnaDAO oftenQnaDAO;
+	
+	public void setOftenQnaDAO(OftenQnaDAO oftenQnaDAO) {
+		this.oftenQnaDAO = oftenQnaDAO;
+	}
+
+	@Override
+	public Map<String, Object> getOftenQnaList(Criteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+
+		List<OftenQnaVO> oftenQnaList = oftenQnaDAO.selectOftenQnaList(cri);
+		// 전체 board 개수
+		int totalCount = oftenQnaDAO.selectOftenQnaListCount(cri);
+
+		// PageMaker 생성.
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+
+		dataMap.put("oftenQnaList", oftenQnaList);
+		dataMap.put("pageMaker", pageMaker);
+
+		return dataMap;
+	}
+
+	@Override
+	public OftenQnaVO getOftenQna(int oq_no) throws SQLException {
+		OftenQnaVO oftenQna = oftenQnaDAO.selectOftenQnaByOftenQnaNo(oq_no);
+		oftenQnaDAO.increaseViewCount(oq_no);
+		return oftenQna;
+	}
+
+	@Override
+	public OftenQnaVO getOftenQnaFotModify(int oq_no) throws SQLException {
+		OftenQnaVO oftenQna = oftenQnaDAO.selectOftenQnaByOftenQnaNo(oq_no);
+		return oftenQna;
+	}
+
+	@Override
+	public void regist(OftenQnaVO oftenQna) throws SQLException {
+		int oq_no = oftenQnaDAO.selectOftenQnaSeqNextvalue(); 
+		oftenQna.setOq_no(oq_no);
+		oftenQnaDAO.insertOftenQna(oftenQna);
+		
+	}
+
+	@Override
+	public void modify(OftenQnaVO oftenQna) throws SQLException {
+		oftenQnaDAO.updateOftenQna(oftenQna);
+		
+	}
+
+	@Override
+	public void remove(int oq_no) throws SQLException {
+		oftenQnaDAO.deleteOftenQna(oq_no);
+	}
+	
+	
+
+}

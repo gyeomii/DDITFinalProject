@@ -1,0 +1,99 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="EtcManager-Mapper">
+	
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and book_title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'a'.toString()">
+			and book_author like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'i'.toString()">
+			and book_isbn like '%'||#{keyword}||'%'
+		</if>
+	</sql>
+	
+	<insert id="insertBook" parameterType="book">
+	insert 
+	into 
+	book(book_no, book_isbn, book_title, book_author, book_publisher, book_publishdate, book_imgurl, kdc_no,state_code,book_regDate) 
+    values
+    (#{book_no},#{book_isbn},#{book_title},#{book_author},#{book_publisher}, 
+     #{book_publishDate},#{book_imgURL} ,#{kdc_no},#{state_code},#{book_regDate})
+	</insert>
+	
+	<select id="selectAllNoRentList" resultType="etc">
+		select book.state_code, common_state.state_name, book.book_imgurl, 
+				book.book_title, book.book_author
+		from book
+			inner join common_state on common_state.state_code = book.state_code
+		where (book.state_code = 9 or book.state_code = 10 or book.state_code = 11)
+	</select>
+	
+	<select id="selectLossBookList" resultType="etc">
+		select book.state_code,  common_state.state_name, book.book_imgurl, 
+				book.book_title, book.book_author
+		from book
+			inner join common_state on common_state.state_code = book.state_code
+		where book.state_code = 12
+	</select>
+	
+	<update id="registNoRentBook" parameterType="etc">
+		update book
+		set state_code = #{state_code}
+		where book_isbn = #{book_isbn}
+	</update>
+	
+	
+	<select id="selectBookByBookNo" resultType="book">
+		select * from book where book_no = #{book_no}
+	</select>
+	
+	
+	<select id="selectBookByBookTitle" resultType="book">
+		select * from book where book_title = #{book_title}
+	</select>
+	
+	<select id="selectBookListCount" resultType="int">
+		SELECT count(*) 
+		FROM ( SELECT A.*,ROW_NUMBER() OVER(PARTITION BY book_isbn ORDER BY book_isbn) RN 
+				FROM book A)
+		WHERE RN=1
+		<include refid="search" />
+	</select>
+	
+	
+	
+	<select id="searchBookByBookTitle" resultType="book">
+		select *
+		from(
+		select rownum as rnum,SearchBookResult.*
+		from (
+		SELECT *
+		FROM ( SELECT A.*,ROW_NUMBER() OVER(PARTITION BY book_isbn ORDER BY book_isbn) RN 
+				FROM book A)
+		WHERE RN=1 
+		<include refid="search" />
+		) SearchBookResult
+		    <![CDATA[
+		    where rownum < #{endRow}
+		    ]]>
+		)
+		 <![CDATA[
+		where rnum >= #{startRow}		
+		 ]]>
+	</select>	
+	
+	
+	<select id="selectDonationBookList" resultType="etc">
+		select *
+		from book
+		where state_code = 9
+	</select>
+	
+	
+	
+</mapper>

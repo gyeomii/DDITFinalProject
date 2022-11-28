@@ -1,0 +1,48 @@
+package bookred.admin.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import bookred.admin.dto.TodolistVO;
+
+public class TodolistDAOImpl implements TodolistDAO {
+	
+	private SqlSession session;
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public List<TodolistVO> selectTodoList(String mem_id) throws SQLException {
+		List<TodolistVO> todoList = session.selectList("Todolist-Mapper.selectTodoList",mem_id);
+		return todoList;
+	}
+
+	@Override
+	public List<TodolistVO> selectStateList(TodolistVO todo) throws SQLException {
+		List<TodolistVO> todoList = session.selectList("Todolist-Mapper.selectStateList",todo);
+		return todoList;
+	}
+
+	@Override
+	public int selectTodoListSeqNextVal() throws SQLException {
+		int index = session.selectOne("Todolist-Mapper.selectTodoListSeqNextVal");
+		return index;
+	}
+
+	@Override
+	public void insertTodoList(TodolistVO todo) throws SQLException {
+		session.insert("Todolist-Mapper.insertTodoList",todo);
+		
+	}
+
+	@Override
+	public void updateTodoState(TodolistVO todo) throws SQLException {
+		session.update("Todolist-Mapper.updateTodoState",todo);
+		
+	}
+	
+}
+

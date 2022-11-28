@@ -1,0 +1,17 @@
+package bookred.member.service;
+
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
+
+import bookred.book.dto.BookVO;
+import bookred.common.dto.LockerMasterVO;
+
+public interface ReserveService {
+	public List<BookVO> getCartBookList(String[] isbnList) throws SQLException;
+	public List<LockerMasterVO> getLockerList()throws SQLException;
+	public void registLockerReserve(String mem_id, int rent_code, String[] isbnList, String locker_num)throws SQLException;
+	public void registFieldReserve(String mem_id, int rent_code, Date want_date, String[] isbnList)throws SQLException;
+	public void registDriveReserve(String mem_id, int rent_code, Date want_date, String[] isbnList, String dt_car_no)throws SQLException;
+
+}

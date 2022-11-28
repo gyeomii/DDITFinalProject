@@ -1,0 +1,93 @@
+package bookred.book.service;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import bookred.admin.command.PageMaker;
+import bookred.book.command.BookCriteria;
+import bookred.book.command.BookPageMaker;
+import bookred.book.dao.BookDAO;
+import bookred.book.dto.BookVO;
+
+public class BookServiceImpl implements BookService {
+
+	private BookDAO bookDAO;
+
+	public void setBookDAO(BookDAO bookDAO) {
+		this.bookDAO = bookDAO;
+	}
+
+	@Override
+	public void regist(BookVO book) throws SQLException {
+
+		int book_no = bookDAO.selectBookSeqNext();
+		book.setBook_no(book_no);
+		bookDAO.insertBook(book);
+
+	}
+
+	@Override
+	public List<BookVO> getBookList() throws SQLException {
+		List<BookVO> bookList = bookDAO.selectBookList();
+		return bookList;
+	}
+	
+	@Override
+	public Map<String, Object> getAllBookList(BookCriteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<BookVO> bookList = bookDAO.selectAllBookList(cri);
+		// 전체 board 개수
+		int totalCount = bookDAO.selectAllBookListCount(cri);
+		// PageMaker 생성.
+		BookPageMaker pageMaker = new BookPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		dataMap.put("bookList", bookList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
+	}	
+
+	@Override
+	public BookVO getBookByBookNo(int book_no) throws SQLException {
+		BookVO book = bookDAO.selectBookByBookNo(book_no);
+		
+		return book;
+	}
+
+	@Override
+	public List<BookVO> selectBookByBookIsbn(String book_isbn) throws SQLException {
+		List<BookVO> bookList = bookDAO.selectBookByBookIsbn(book_isbn);
+		return bookList;
+	}
+
+	@Override
+	public List<BookVO> getBookListForAI(String[] book_no_list) throws SQLException {
+		List<BookVO> bookList = new ArrayList<BookVO>();
+		for (String book_no : book_no_list) {
+			BookVO book = bookDAO.selectBookByBookNo(Integer.parseInt(book_no));
+			bookList.add(book);
+		}
+		return bookList;
+	}
+
+	@Override
+	public Map<String, Object> getBookByBookTitle(BookCriteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<BookVO> bookList = bookDAO.searchBookByBookTitle(cri);
+		// 전체 board 개수
+		int totalCount = bookDAO.selectBookListCount(cri);
+		// PageMaker 생성.
+		BookPageMaker pageMaker = new BookPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		dataMap.put("bookList", bookList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
+	}
+
+}

@@ -1,0 +1,248 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Reserve-Mapper">
+<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and rent_code like '%'||#{keyword}||'%'
+		</if>
+		<!-- <if test="searchType == 'e'.toString()"> -->
+		<!-- and mem_email like '%'||#{keyword}||'%' -->
+		<!-- </if> -->
+		<!-- <if test="searchType == 'n'.toString()"> -->
+		<!-- and mem_name like '%'||#{keyword}||'%' -->
+		<!-- </if> -->
+	</sql>
+
+	
+	<select id="selectRentableByISBN" resultType="int">
+		select book_rentable
+		from book_stock
+		where book_isbn = #{book_isbn}		
+	</select>
+	<update id="updateBookStock">
+		update book_stock
+		set book_rentable = book_rentable -1
+		where book_isbn = #{book_isbn}
+	</update>
+	<select id="selectBookByISBN" resultType="book">
+		select *
+		from (
+        		select book.*, row_number() over(PARTITION by book_isbn order by book_isbn) as rn
+        		from book
+    	)
+		where rn = 1 and book_isbn = #{book_isbn}
+	</select>
+	<select id="selectRentBookList" resultType="rentBack">
+		select * 
+		from rent_back 
+		where is_return = 'N' and mem_id = #{mem_id}
+	</select>
+	<select id="selectReserveList" resultType="bookReserve">
+	  select *
+      from (select * from rm where rent_status != 1 and rent_status != 3 and rent_status != 5 and rent_status != 6  )
+      where mem_id = #{mem_id}
+	</select>
+	
+	<select id="selectLockerList" resultType="lockerMaster">
+		select *
+		from locker_master
+	</select>
+	<update id="updateLockerMaster">
+		update locker_master
+		set is_usable = #{is_usable}
+		where locker_num = #{locker_num}
+	</update>
+	<insert id="insertRM" parameterType="rm">
+		insert into rm(rm_no, rm_date, want_date, mem_id, rent_code) 
+		values(#{rm_no}, #{rm_date}, #{want_date}, #{mem_id},#{rent_code})
+	</insert>
+	<insert id="insertBookReserve">
+		insert into book_reserve(reserve_no, mem_id, isbn, cart_no, rm_no)
+		values(reserve_no_seq.nextval, #{mem_id}, #{isbn}, #{cart_no}, #{rm_no})
+	</insert>
+	<!-- 대출증 생성시 추가할 예정 -->
+	<insert id="insertLocker" parameterType="locker">
+		insert into locker(lk_no, locker_num, lk_ispickup, rm_no)
+		values(lk_no_seq.nextval, #{locker_num}, #{lk_ispickup},#{rm_no})
+	</insert>
+	<select id="selectRMSeqNextVal" resultType="int">
+		select rm_no_seq.nextVal from dual	
+	</select>
+	<!-- 	드라이브전용 -->
+	<insert id="insertDriveThru" parameterType="drive">
+		insert into drivethru(dt_seq, dt_car_no, dt_ispickup, rm_no)
+		values(DT_SEQ_SEQ.nextval, #{dt_car_no}, #{dt_ispickup}, #{rm_no})
+	</insert>
+	
+	<!-- 	배송예약관련 -->
+	<select id="selectAvailableCoupons" resultType="coupon">
+		select * from coupon
+		where cp_status = 0
+		and mem_id = #{mem_id}
+	</select>
+	<select id="selectDVSeqNextVal" resultType="int">
+		select dv_no_seq.nextval from dual
+	</select>
+	<insert id="insertDelivery" parameterType="delivery">
+		insert into delivery (dv_no, rm_no, dv_address, dv_tell)
+		values(#{dv_no}, #{rm_no}, #{dv_address}, #{dv_tell})
+	</insert>
+	<insert id="insertPayWithCoupon" parameterType="pay">
+		insert into pay (pay_no, mem_id, is_pay_cp, pay_price, pay_date, cp_no, dv_no, pay_order)
+		values (pay_no_seq.nextval, #{mem_id}, #{is_pay_cp}, #{pay_price}, sysdate, #{cp_no}, #{dv_no}, #{pay_order})
+	</insert>
+	<insert id="insertPayNoCoupon" parameterType="pay">
+		insert into pay (pay_no, mem_id, is_pay_cp, pay_price, pay_date, dv_no, pay_order)
+		values (pay_no_seq.nextval, #{mem_id}, #{is_pay_cp}, #{pay_price}, sysdate, #{dv_no}, #{pay_order})
+	</insert>
+	<update id="updateCouponUse" parameterType="coupon">
+		update coupon
+		set cp_status = 1
+		where cp_no = #{cp_no}
+	</update>
+	
+	<!-- MY 도서 예약 내역출력  -->	
+	<select id="selectBookReserveRMList" resultType="rm">
+		select *
+		from rm 
+		where rent_status != 1 and rent_status != 3 and rent_status != 5 and rent_status != 6 and mem_id = #{mem_id} 
+		order by rm_date desc
+	</select>
+	<select id="selectBookReservePastList" resultType="rm">
+		select *
+		from(
+		select rownum as rnum, SearchBookResult.*
+		from (
+		select *
+		from rm 
+		where rent_status != 0 and rent_status != 2 and rent_status != 4 and mem_id = #{mem_id} and rent_code != 4
+		<include refid="search" />
+		order by rm_date desc
+		) SearchBookResult
+		    <![CDATA[
+		    where rownum < #{endRow}
+		    ]]>
+		)
+		 <![CDATA[
+		where rnum >= #{startRow}		
+		 ]]>
+	</select>
+	
+	<select id="selectBookReservePastListCount" resultType="int">
+		select count(*)
+		from rm 
+		where rent_status != 0 and rent_status != 2 and rent_status != 4 and mem_id = #{mem_id} and rent_code != 4
+		order by rm_date desc
+	</select>
+	
+	<select id="selectBookReserveByRMDriveThru" resultType="rm">
+		select *
+		from rm a inner join drivethru b
+        on a.rm_no = b.rm_no
+		where a.rm_no  =#{rm_no}
+		order by rm_date desc
+	</select>
+	<select id="selectBookReserveByRMLocker" resultType="rm">
+		select *
+		from rm a inner join locker b
+        on a.rm_no = b.rm_no
+		where a.rm_no  =#{rm_no}
+		order by rm_date desc
+	</select>
+	<select id="selectBookReserveByRMDelivery" resultType="rm">
+		select *
+		from rm a inner join delivery b
+        on a.rm_no = b.rm_no
+		where a.rm_no  =#{rm_no}
+		order by rm_date desc
+	</select>
+	<select id="selectBookReserveByRMLibrary" resultType="rm">
+		select *
+		from rm 
+		where rm_no = #{rm_no} and rent_code = 0 
+		order by rm_date desc
+	</select>
+	
+	
+	<!-- 각각의 내역 찾아오는 부분 지금 사용안함(재열) -->
+	<select id="selectRMTakeLibraryList" resultType="rm">
+		select *
+		from rm 
+		where rent_status != 5 and mem_id = #{mem_id} and rent_code = #{rent_code} and rownum &lt;= 4
+		order by rm_no desc
+	</select>
+	
+	<select id="selectRMTakeLockerList" resultType="rm">
+		select *
+		from rm a inner join locker b
+        on a.rm_no = b.rm_no
+		where a.rent_status != 5 and a.mem_id = #{mem_id} and a.rent_code = #{rent_code} and rownum &lt;= 4
+		order by a.rm_no desc
+	</select>
+	
+	<select id="selectRMTakeDeliveryList" resultType="rm">
+		select *
+		from rm a inner join delivery b
+        on a.rm_no = b.rm_no
+		where a.rent_status != 5 and a.mem_id = #{mem_id} and a.rent_code = #{rent_code} and rownum &lt;= 4
+		order by a.rm_no desc
+	</select>
+	
+	<select id="selectRMTakeDriveThruList" resultType="rm">
+		select *
+		from rm a inner join drivethru b
+        on a.rm_no = b.rm_no
+		where a.rent_status != 5 and a.mem_id = #{mem_id} and a.rent_code = #{rent_code} and rownum &lt;= 4
+		order by a.rm_no desc
+	</select>
+	
+	<update id="updateRMRentStatusToCancel" parameterType="int">
+		update rm
+		set rent_status = 1
+		where rm_no = #{rm_no}
+		
+	</update>
+	
+	<select id="selectBookReserveByRmNo" parameterType="int" resultType="bookReserve">
+		select *
+		from book_reserve
+		where rm_no = #{rm_no}
+	</select>
+	
+	<!-- 	드라이브스루 현장 처리 부분 -->	
+	<select id="selectRmNobyCar" parameterType="String" resultType="drive">
+		select rm_no
+		from drivethru
+		where dt_car_no = #{dt_car_no}
+	</select>
+	
+	<select id="selectRmbyRmNo" parameterType="int" resultType="rm">
+		select *
+		from rm
+		where rm_no = #{rm_no}
+		and rent_status = 4
+	</select>	
+	
+	<select id="selectBookReservebyRmNo" parameterType="int" resultType="bookReserve">
+		select *
+		from book_reserve
+		where rm_no = #{rm_no}
+	</select>		
+	<update id="updateDrivePickup">
+		update drivethru
+		set dt_ispickup = 1
+		where rm_no = #{rm_no}
+	</update>	
+	
+	<select id="selectRMStatusZero" resultType="rm">
+		select *
+		from rm 
+		where rent_status = 0
+		order by rm_no desc
+	</select>
+	
+	
+	
+</mapper>

@@ -1,0 +1,161 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Review-Mapper">
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+<!-- 			and book_title like '%'||#{keyword}||'%' -->
+		</if>
+		<!-- <if test="searchType == 'e'.toString()"> -->
+		<!-- and mem_email like '%'||#{keyword}||'%' -->
+		<!-- </if> -->
+		<!-- <if test="searchType == 'n'.toString()"> -->
+		<!-- and mem_name like '%'||#{keyword}||'%' -->
+		<!-- </if> -->
+	</sql>
+
+	<select id="selecReviewList" resultType="review">
+
+		select *
+		from(
+		select rownum as rnum, SearchBookResult.*
+		from ( select *
+		from( select
+		rent_no, rent_back.book_no, rent_back.mem_id, book.book_title,
+		book_imgurl, is_return
+		from rent_back inner join book
+		on rent_back.book_no =	book.book_no
+		where rent_back.mem_id = #{mem_id}) rent_back inner join review
+		on rent_back.rent_no = review.rent_no
+		where rent_back.is_return =	#{is_return}
+		<include refid="search" />
+		order by REV_REGDATE desc
+		) SearchBookResult
+		    <![CDATA[
+		    where rownum < #{endRow}
+		    ]]>
+		)
+		 <![CDATA[
+		where rnum >= #{startRow}		
+		 ]]>
+	</select>
+
+	<select id="selectReviewListCount" resultType="int">
+		select
+		count(*)
+		from review inner join rent_back on rent_back.rent_no =
+		review.rent_no
+		where rent_back.mem_id = #{mem_id}
+		<!-- <include refid="search" /> -->
+	</select>
+
+	<select id="selectReviewByRevNo" parameterType="int" resultType="review">
+		select
+		*
+		from review
+		where rev_no=#{rev_no}
+	</select>
+
+	<select id="selectReviewSeqNext" resultType="int">
+		select  REV_NO_SEQ.nextval as rev_no from dual
+	</select>
+
+	<select id="selectNotReviewList" resultType="review">
+
+		select *
+		from(
+		select rownum as rnum, SearchBookResult.*
+		from ( select	c.*, d.book_title, d.book_author
+		from (
+				select a.rent_no, a.is_return, a.rm_no, a.return_date, a.book_no,
+				a.rent_date
+				from rent_back a left join review b
+				on a.rent_no = b.rent_no
+				where a.return_date is not null and a.is_return ='Y' and b.rent_no is null)
+				c inner join book d
+				on c.book_no = d.book_no
+		<include refid="search" />
+		order by return_date desc
+		) SearchBookResult
+		    <![CDATA[
+		    where rownum < #{endRow}
+		    ]]>
+		)
+		 <![CDATA[
+		where rnum >= #{startRow}		
+		 ]]>
+	</select>
+	
+		<select id="selectRentnoToBookinfo" resultType="rentBook">
+		select
+		rent_no, rent_back.book_no, book_isbn, book_title, book_author, book_imgurl, rent_date, BOOK_PUBLISHDATE, book_isbn
+		from rent_back 
+		inner join book
+		on rent_back.book_no =
+		book.book_no
+		where rent_no = #{rent_no}   
+	</select>
+	
+	<update id="insertReview" parameterType="review">
+		insert into
+		review(REV_NO, REV_GRADE, REV_CONTENT, REV_REGDATE, RENT_NO, BOOK_ISBN)
+		values(#{rev_no}, #{rev_grade}, #{rev_content}, sysdate,  #{rent_no}, #{book_isbn})
+	</update>
+
+
+	<update id="updateReview" parameterType="review">
+		update review
+		set
+		rev_grade=#{rev_grade},rev_content=#{rev_content}
+		where
+		rev_no=#{rev_no}
+	</update>
+
+	<update id="deleteReview" parameterType="int">
+		delete
+		from review
+		where
+		rev_no=#{rev_no}
+	</update>
+
+	<select id="selectAvgRev" resultType="int">
+		select round(avg(rev_grade)) as avg_rev
+		from review 
+		where book_isbn =#{book_isbn}
+	</select>
+	
+	<select id="selecReviewListByIsbn" resultType="review">
+		select *
+		from(
+		select rownum as rnum,SearchBookResult.*
+		from (
+	
+		select A.*, B.mem_id from review A, rent_back B
+		WHERE A.RENT_NO = B.RENT_NO
+		AND a.BOOK_ISBN =#{book_isbn}
+		
+		<include refid="search" />
+		) SearchBookResult
+		    <![CDATA[
+		    where rownum < #{endRow}
+		    ]]>
+		)
+		 <![CDATA[
+		where rnum >= #{startRow}		
+		 ]]>
+	
+	</select>
+	
+	<select id="selecReviewListByIsbnCount" resultType="int">
+		select count (*) 
+		from(        
+		select A.*, B.mem_id from review A, rent_back B
+		WHERE A.RENT_NO = B.RENT_NO
+		AND a.BOOK_ISBN = #{book_isbn})
+		<include refid="search" />
+	</select>
+
+	
+
+</mapper>

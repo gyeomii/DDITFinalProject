@@ -1,0 +1,14 @@
+package bookred.admin.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import bookred.member.dto.LockerVO;
+import bookred.member.dto.RMVO;
+
+public interface RentReturnDAO {
+	public List<RMVO> selectRMList(int rent_code)throws SQLException;
+	public List<String> selectIsbnList(int rm_no)throws SQLException;
+	public LockerVO selectLocker(int rm_no)throws SQLException;
+	public String selectCarNo(int rm_no) throws SQLException;
+}

@@ -1,0 +1,41 @@
+package bookred.admin.dao;
+
+import java.sql.SQLException;
+
+import org.apache.ibatis.session.SqlSession;
+
+import bookred.admin.dto.NewBookVO;
+
+public class NewBookDAOImpl implements NewBookDAO {
+	
+	private SqlSession sqlSession;
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+	
+
+	@Override
+	public void insertInNewBookWork(NewBookVO newbookWork) throws SQLException {
+		sqlSession.insert("NewBook-Mapper.insertInNewBookWork", newbookWork);
+	}
+
+	@Override
+	public void insertInNewBook(NewBookVO newbook) throws SQLException {
+		sqlSession.insert("NewBook-Mapper.insertNewBook", newbook);
+		
+	}
+
+	@Override
+	public void insertInBookMaster(NewBookVO book) throws SQLException {
+		sqlSession.insert("NewBook-Mapper.insertBook", book);
+		
+	}
+
+
+	@Override
+	public void updateWishState(NewBookVO wishState) throws SQLException {
+		sqlSession.update("NewBook-Mapper.wbStateUpdate", wishState);
+		
+	}
+
+}

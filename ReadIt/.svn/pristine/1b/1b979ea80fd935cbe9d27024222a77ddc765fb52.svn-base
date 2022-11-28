@@ -1,0 +1,73 @@
+package bookred.main.service;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import bookred.admin.command.Criteria;
+import bookred.admin.command.PageMaker;
+import bookred.main.dao.LostDAO;
+import bookred.main.dto.LostVO;
+
+public class LostServiceImpl implements LostService {
+
+	private LostDAO lostDAO;
+	
+	public void setLostDAO(LostDAO lostDAO) {
+		this.lostDAO = lostDAO;
+	}
+	
+	@Override
+	public Map<String, Object> getLostList(Criteria cri) throws SQLException {
+
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		List<LostVO> lostList = lostDAO.selectLostList(cri);
+		
+		int totalCount = lostDAO.selectLostListCount(cri);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		
+		dataMap.put("lostList", lostList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
+	}
+
+	@Override
+	public LostVO getLost(int lost_no) throws SQLException {
+		LostVO lost = lostDAO.selectLostByLostNo(lost_no);
+		//lostDAO.increaseViewCount(lost_no);
+		return lost;
+	}
+
+	@Override
+	public LostVO getLostForModify(int lost_no) throws SQLException {
+		LostVO lost = lostDAO.selectLostByLostNo(lost_no);
+		return lost;
+	}
+
+	@Override
+	public void regist(LostVO lost) throws SQLException {
+		int lost_no = lostDAO.selectLosttSeqNext();
+		lost.setLost_no(lost_no);
+		lostDAO.insertLost(lost);
+		
+	}
+
+	@Override
+	public void modify(LostVO lost) throws SQLException {
+		lostDAO.updateLost(lost);
+		
+	}
+
+	@Override
+	public void remove(int lost_no) throws SQLException {
+		lostDAO.deleteLost(lost_no);
+		
+	}
+
+}

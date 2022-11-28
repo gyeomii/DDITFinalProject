@@ -1,0 +1,10 @@
+package bookred.main.dao;
+
+import bookred.main.dto.MultiOneVO;
+
+public interface MultiOneDAO {
+
+	
+	void insertMultiOne(MultiOneVO multiOne) throws Exception;
+
+}

@@ -1,0 +1,46 @@
+package bookred.member.controller;
+
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.josephoconnell.html.HTMLInputFilter;
+
+import bookred.main.dto.EventVO;
+import bookred.member.command.RentCriteria;
+import bookred.member.dto.RentBackVO;
+import bookred.member.dto.RentBookVO;
+import bookred.member.dto.ReviewVO;
+import bookred.member.service.RentBackService;
+import bookred.member.service.ReviewService;
+
+@Controller
+@RequestMapping("/main/myBook/returnList")
+public class MemberBackBookRequestController {
+	
+	@Autowired
+	private RentBackService rentBackService;
+	
+	@Autowired
+	private ReviewService reviewService;
+	
+	
+	
+	
+	
+	
+	
+}
+

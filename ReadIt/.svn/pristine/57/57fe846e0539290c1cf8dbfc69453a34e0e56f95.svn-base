@@ -1,0 +1,15 @@
+package bookred.socket.service;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import bookred.member.dto.RMVO;
+import bookred.socket.dto.AlramVO;
+
+public interface SocketService {
+
+		public List<AlramVO> getAlramRMList() throws SQLException;
+		
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MultiOne-Mapper">
+
+	<insert id="insertMeetingOne">
+		insert into
+		fac_rsv(FR_NO,MEM_ID,FAC_CODE,FR_DAY,FR_HOUR,FR_SEAT,FR_TEXT,FR_CAPABILITY)
+		values(FR_NO_SEQ.NEXTVAL,#{mem_id},#{fac_code},#{fr_day},#{fr_hour},#{fr_seat},#{fr_text},#{fr_capability})
+
+	</insert>
+
+		<insert id="insertMultiOne">
+		insert into
+		fac_rsv(FR_NO,MEM_ID,FAC_CODE,FR_DAY,FR_HOUR,FR_SEAT)
+		values(FR_NO_SEQ.NEXTVAL,#{mem_id},#{fac_code},#{fr_day},#{fr_hour},#{fr_seat})
+
+	</insert>
+
+	<select id="getSeatByDateAndTime" resultType="str">
+		select fr_seat
+		from
+		fac_rsv
+		where fr_day = #{fr_day}
+		and fr_hour = #{fr_hour}
+		and fac_code =
+		#{fac_code}
+
+	</select>
+
+	<select id="getMeetingTime" resultType="multiOne">
+
+		select a.time_range as fr_hour,
+		(a.time_range+2) as fr_hour_end
+		from (select time_range from time_section
+		minus
+		select distinct fr_hour
+		from fac_rsv
+		WHERE fr_day=#{day} and fac_code = 't1') a
+
+	</select>
+
+
+	<select id="getMeetingTime2" resultType="multiOne">
+		select a.time_range as fr_hour,
+		(a.time_range+2) as fr_hour_end
+		from (select time_range from time_section
+		minus
+		select distinct fr_hour
+		from fac_rsv
+		WHERE fr_day=#{day} and fac_code = 't2') a
+
+	</select>
+
+	<select id="registCheck" resultType="int">
+		select count(fr_hour)
+		from fac_rsv
+		where mem_id = #{mem_id} and fr_day = #{fr_day} and fac_code = #{fac_code}
+
+	</select>
+
+	<select id="facilityMemList" resultType="multiOne">
+		select * from
+		fac_rsv
+		where mem_id = #{mem_id}
+	
+	</select>
+
+</mapper>  

@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Stupid-Mapper">
+	<insert id="insertStupidBook" parameterType="stupid">
+		insert into stupid_book (sb_no, sb_location, sb_regdate, book_kdc, move_location)
+		values (sb_no_seq.nextval, #{sb_location}, sysdate, #{book_kdc}, #{move_location})
+	</insert>
+	
+	<select id="selectStupidBookList" resultType="stupid">
+		select * from stupid_book
+	</select>
+	
+	<select id="selectStupidBookAlramList" resultType="stupid">
+		select * from stupid_book where SB_ISDONE = 0
+	</select>
+	<select id="selectStupidBookDoneList" resultType="stupid">
+		select * from stupid_book where SB_ISDONE = 1
+	</select>
+	<update id="updateStupidBookCorrect" parameterType="stupid">
+		update stupid_book
+		set sb_isdone = #{sb_isdone}, ad_id = #{ad_id}
+		where sb_no = #{sb_no}	
+	</update>
+</mapper>

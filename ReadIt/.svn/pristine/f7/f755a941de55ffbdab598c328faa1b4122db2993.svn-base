@@ -1,0 +1,70 @@
+package bookred.member.dao;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+import bookred.member.command.RentCriteria;
+import bookred.member.dto.ReviewVO;
+
+public class ReviewDAOImpl implements ReviewDAO {
+
+	private SqlSession session;
+
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public List<ReviewVO> selecReviewList(RentCriteria cri, ReviewVO review) throws SQLException {
+		int startRow = cri.getStartRowNum() + 1;
+		int endRow = startRow + cri.getPerPageNum();
+
+		Map<String, Object> dataParam = new HashMap<String, Object>();
+		dataParam.put("startRow", startRow);
+		dataParam.put("endRow", endRow);
+		dataParam.put("searchType", cri.getSearchType());
+		dataParam.put("keyword", cri.getKeyword());
+		dataParam.put("mem_id", review.getMem_id());
+		dataParam.put("is_return", review.getIs_return());
+
+		List<ReviewVO> reviewList = new ArrayList<ReviewVO>();
+		reviewList = session.selectList("Review-Mapper.selecReviewList", dataParam);
+
+		return reviewList;
+	}
+
+	@Override
+	public int selectReviewListCount(RentCriteria cri, String mem_id) throws SQLException {
+		Map<String, Object> dataParam = new HashMap<String, Object>();
+		dataParam.put("cri", cri);
+		dataParam.put("mem_id", mem_id);
+		System.out.println("selectReviewListCount : " + mem_id);
+
+		int count = session.selectOne("Review-Mapper.selectReviewListCount", dataParam);
+		return count;
+	}
+
+	@Override
+	public ReviewVO selectReviewByRevNo(int rev_no) throws SQLException {
+		ReviewVO rent = session.selectOne("Review-Mapper.selectReviewByRevNo", rev_no);
+		return rent;
+	}
+
+	@Override
+	public int selectReviewSeqNext() throws SQLException {
+		return session.selectOne("Review-Mapper.selectReviewSeqNext");
+	}
+
+	@Override
+	public List<ReviewVO> selectAllReviewByBookTitle(String book_title) throws SQLException {
+		List<ReviewVO> rent = session.selectList("Review-Mapper.selectAllRentByBookTitle", book_title);
+		return rent;
+	}
+
+
+}

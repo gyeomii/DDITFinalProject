@@ -1,0 +1,12 @@
+package bookred.member.service;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import bookred.book.dto.BookVO;
+import bookred.common.dto.LockerVO;
+
+public interface ReserveService {
+	public List<BookVO> getCartBookList(String[] isbnList) throws SQLException;
+	public List<LockerVO> getLockerList()throws SQLException;
+}

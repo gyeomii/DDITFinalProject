@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserManage-Mapper">
+
+
+<select id="selectAdminById" parameterType="str" resultType="selectAdmin"> 
+		select member.mem_id, member.mem_name, member.mem_email, member.mem_phone,
+        		department.dp_name,admin_info.ad_position, admin_info.fingerprint
+		from admin_info
+    		inner join member on member.mem_id = admin_info.mem_id
+    		inner join department on admin_info.dp_no = department.dp_no 
+   		where admin_info.mem_id=#{mem_id} 
+</select>
+
+<update id="updateFinger" parameterType="selectAdmin">
+	update admin_info
+	set fingerprint = #{filename}
+	where mem_id=#{mem_id}
+</update>
+
+<update id="deleteFinger" parameterType="str">
+	update admin_info
+	set	fingerprint = null
+	where mem_id=#{mem_id} 
+</update>
+
+
+
+</mapper>

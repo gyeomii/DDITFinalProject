@@ -1,0 +1,6 @@
+package bookred.member.command;
+
+public class MemberRegistCommand {
+	private String mem_id;
+	
+}

@@ -1,0 +1,154 @@
+package bookred.admin.dto;
+
+import java.util.Date;
+
+
+public class AdminInfoVO {
+	private String ad_id = ""; // 관리자 아이디
+	private int dp_no = 0; // 부서번호(외래키)
+	private String ad_pwd = ""; // 비밀번호
+	private String ad_phone = ""; // 전화번호
+	private Date ad_birth = new Date(); // 생년월일
+	private String ad_email = ""; // 이메일
+	private String ad_name = ""; // 이름
+	private String ad_addr = ""; // 주소
+	private String ad_auth = ""; // 권한
+	private String ad_position = ""; // 직책
+	private int approval; // 승인
+	private String fingerprint = ""; // 지문
+	private String ad_img = ""; // 관리자사진
+	private int enabled; // 사용여부
+	
+	private int userType = 0;
+	
+	public AdminInfoVO() {}
+	public AdminInfoVO(String ad_id, String ad_pwd) {
+		this.ad_id = ad_id;
+		this.ad_pwd = ad_pwd;
+	}
+
+	public String getAd_id() {
+		return ad_id;
+	}
+
+	public void setAd_id(String ad_id) {
+		this.ad_id = ad_id;
+	}
+
+	public int getDp_no() {
+		return dp_no;
+	}
+
+	public void setDp_no(int dp_no) {
+		this.dp_no = dp_no;
+	}
+
+	public String getAd_pwd() {
+		return ad_pwd;
+	}
+
+	public void setAd_pwd(String ad_pwd) {
+		this.ad_pwd = ad_pwd;
+	}
+
+	public String getAd_phone() {
+		return ad_phone;
+	}
+
+	public void setAd_phone(String ad_phone) {
+		this.ad_phone = ad_phone;
+	}
+
+	public Date getAd_birth() {
+		return ad_birth;
+	}
+
+	public void setAd_birth(Date ad_birth) {
+		this.ad_birth = ad_birth;
+	}
+
+	public String getAd_email() {
+		return ad_email;
+	}
+
+	public void setAd_email(String ad_email) {
+		this.ad_email = ad_email;
+	}
+
+	public String getAd_name() {
+		return ad_name;
+	}
+
+	public void setAd_name(String ad_name) {
+		this.ad_name = ad_name;
+	}
+
+	public String getAd_addr() {
+		return ad_addr;
+	}
+
+	public void setAd_addr(String ad_addr) {
+		this.ad_addr = ad_addr;
+	}
+
+	public String getAd_auth() {
+		return ad_auth;
+	}
+
+	public void setAd_auth(String ad_auth) {
+		this.ad_auth = ad_auth;
+	}
+
+	public String getAd_position() {
+		return ad_position;
+	}
+
+	public void setAd_position(String ad_position) {
+		this.ad_position = ad_position;
+	}
+
+	public int getApproval() {
+		return approval;
+	}
+
+	public void setApproval(int approval) {
+		this.approval = approval;
+	}
+
+	public String getFingerprint() {
+		return fingerprint;
+	}
+
+	public void setFingerprint(String fingerprint) {
+		this.fingerprint = fingerprint;
+	}
+
+	public String getAd_img() {
+		return ad_img;
+	}
+
+	public void setAd_img(String ad_img) {
+		this.ad_img = ad_img;
+	}
+
+	public int getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
+	}
+	@Override
+	public String toString() {
+		return this.ad_id;
+	}
+	public int getUserType() {
+		return userType;
+	}
+	public void setUserType(int userType) {
+		this.userType = userType;
+	}
+	
+	
+	
+
+}

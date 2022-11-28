@@ -1,0 +1,16 @@
+package bookred.main.dao;
+
+import java.util.List;
+
+import bookred.main.dto.MultiOneVO;
+
+public interface MultiOneDAO {
+
+	
+	void insertMultiOne(MultiOneVO multiOne) throws Exception;
+
+	List<String> getSeatByDateAndTime(MultiOneVO multiOne) throws Exception;
+	
+	List<MultiOneVO> getMeetingTime(String day) throws Exception;
+	
+}
