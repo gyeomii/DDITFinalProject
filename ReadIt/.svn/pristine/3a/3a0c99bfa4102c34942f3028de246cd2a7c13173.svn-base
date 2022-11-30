@@ -1,8 +1,0 @@
-package bookred.main.service;
-
-import bookred.main.dto.MultiOneVO;
-
-public interface MultiOneService {
-
-	void regist(MultiOneVO multiOne) throws Exception;
-}

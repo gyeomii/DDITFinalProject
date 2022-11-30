@@ -1,5 +1,0 @@
-package bookred.admin.dao;
-
-public class TodolistDAOImpl implements TodolistDAO {
-
-}
